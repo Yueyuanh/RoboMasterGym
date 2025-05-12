@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Wheelleg_Robot">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0393119892499659 0.000727219650863031 0.124790988924537"
+        rpy="0 0 0" />
+      <mass
+        value="9.66650123485261" />
+      <inertia
+        ixx="0.021667255610811"
+        ixy="-6.84802514806425E-06"
+        ixz="-6.94682533420436E-05"
+        iyy="0.0267198794185766"
+        iyz="0.000293520093894272"
+        izz="0.0278354606058483" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="R_LEG_link">
+    <inertial>
+      <origin
+        xyz="0.0593195704988335 -0.00395996631715179 0.00337278963733142"
+        rpy="0 0 0" />
+      <mass
+        value="0.187320941711117" />
+      <inertia
+        ixx="9.82888166929598E-05"
+        ixy="-5.57235263548808E-19"
+        ixz="-2.55423110367473E-05"
+        iyy="0.000530493427214956"
+        iyz="-1.27691905385213E-19"
+        izz="0.000439056171779246" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_LEG_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_LEG_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="R_LEG_joint"
+    type="continuous">
+    <origin
+      xyz="0.0999999999999987 0.194999999999033 0.136"
+      rpy="0 -0.399732455556951 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="R_LEG_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="R_leg_link2">
+    <inertial>
+      <origin
+        xyz="-0.204331841708071 0.0143511599865713 6.42877477982119E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.504177213691205" />
+      <inertia
+        ixx="0.000240640987451385"
+        ixy="-2.80146963419998E-08"
+        ixz="8.27816297118785E-07"
+        iyy="0.0026476360704367"
+        iyz="-1.73890969867268E-08"
+        izz="0.00246221574199807" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_leg_link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_leg_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="R_leg_joint2"
+    type="continuous">
+    <origin
+      xyz="0.139741726052029 0.0270000000000006 0.00849999999999393"
+      rpy="0 -0.235284574006044 0" />
+    <parent
+      link="R_LEG_link" />
+    <child
+      link="R_leg_link2" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="R_wheel_link">
+    <inertial>
+      <origin
+        xyz="6.10622663543836E-16 0.0438243848963922 -1.66533453693773E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.209072881854544" />
+      <inertia
+        ixx="0.00037898367509143"
+        ixy="4.44290791644015E-20"
+        ixz="1.48186541596067E-20"
+        iyy="0.000716092460503367"
+        iyz="-3.20440037467828E-19"
+        izz="0.00037898367509143" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/R_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="R_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.28 0.00249999999999903 0"
+      rpy="0 0.635017029562995 0" />
+    <parent
+      link="R_leg_link2" />
+    <child
+      link="R_wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="L_LEG_link">
+    <inertial>
+      <origin
+        xyz="0.0611441149527177 0.00349837080216486 0.00394917222507897"
+        rpy="0 0 0" />
+      <mass
+        value="0.191737363714934" />
+      <inertia
+        ixx="9.84652500345703E-05"
+        ixy="1.13750999071705E-19"
+        ixz="-1.6206205667753E-05"
+        iyy="0.000533018574846117"
+        iyz="7.9515093381934E-21"
+        izz="0.000441512571108957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_LEG_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_LEG_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="L_LEG_joint"
+    type="continuous">
+    <origin
+      xyz="0.0999999999999987 -0.194999999999043 0.136"
+      rpy="0 -0.399732455556948 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_LEG_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="L_leg_link2">
+    <inertial>
+      <origin
+        xyz="-0.209370158660843 -0.00996663280580701 -0.000521378628934047"
+        rpy="0 0 0" />
+      <mass
+        value="0.539606453482741" />
+      <inertia
+        ixx="0.000255690648025865"
+        ixy="8.30920950967472E-09"
+        ixz="-1.24070594634651E-05"
+        iyy="0.00152449946913708"
+        iyz="3.19086342930764E-08"
+        izz="0.00132325020465329" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_leg_link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_leg_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="L_leg_joint2"
+    type="continuous">
+    <origin
+      xyz="0.139741726052028 -0.0269999999999999 0.00850000000000127"
+      rpy="0 -0.235284574006046 0" />
+    <parent
+      link="L_LEG_link" />
+    <child
+      link="L_leg_link2" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="L_wheel_link">
+    <inertial>
+      <origin
+        xyz="-6.10622663543836E-16 -0.0438243848963922 -1.94289029309402E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.209072881854544" />
+      <inertia
+        ixx="0.000378983675091431"
+        ixy="2.66981659142832E-20"
+        ixz="1.4425900635957E-21"
+        iyy="0.000716092460503369"
+        iyz="3.66181644437592E-19"
+        izz="0.000378983675091431" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/L_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="L_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.28 -0.00249999999999961 0"
+      rpy="0 0.635017029562993 0" />
+    <parent
+      link="L_leg_link2" />
+    <child
+      link="L_wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="Gimbal_link">
+    <inertial>
+      <origin
+        xyz="-0.000894001024621144 -0.0100347259792269 0.0945959392694565"
+        rpy="0 0 0" />
+      <mass
+        value="0.798473291074186" />
+      <inertia
+        ixx="0.00200618600837109"
+        ixy="6.2760124053965E-14"
+        ixz="3.31141964772513E-05"
+        iyy="0.00282847641239311"
+        iyz="2.51023011999857E-05"
+        izz="0.00273363884089259" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/Gimbal_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/Gimbal_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gimbal_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.11135"
+      rpy="0 0 3.1415" />
+    <parent
+      link="base_link" />
+    <child
+      link="Gimbal_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Pitch_link">
+    <inertial>
+      <origin
+        xyz="0.040558739596251 0.00325186391669308 0.0130986122300888"
+        rpy="0 0 0" />
+      <mass
+        value="2.1250497738678" />
+      <inertia
+        ixx="0.000984450160986608"
+        ixy="-3.98470626871764E-06"
+        ixz="2.54649279423034E-05"
+        iyy="0.00181738648714478"
+        iyz="1.98831102994705E-06"
+        izz="0.00233878220472598" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/Pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Wheelleg_Robot/meshes/Pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Pitch_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.000499999999995171 0.212"
+      rpy="0 0 0" />
+    <parent
+      link="Gimbal_link" />
+    <child
+      link="Pitch_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+</robot>
