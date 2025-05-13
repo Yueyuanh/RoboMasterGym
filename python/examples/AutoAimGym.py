@@ -8,6 +8,8 @@ import time
 import torch
 import math
 import random
+import cv2
+import os
 
 # 初始化 Gym
 gym = gymapi.acquire_gym()
@@ -16,7 +18,9 @@ gym = gymapi.acquire_gym()
 args = gymutil.parse_arguments(
     description="Projectiles Example: Press SPACE to fire a projectile. Press R to reset the simulation.",
     custom_parameters=[
-        {"name": "--num_envs", "type": int, "default": 4, "help": "要创建的环境数量"}])
+        {"name": "--num_envs", "type": int, "default": 4, "help": "要创建的环境数量"},
+        {"name": "--capture_video", "action": "store_true", "help": "录制视频保存到本地"}
+        ])
 
 # 配置仿真参数
 sim_params = gymapi.SimParams()
@@ -50,7 +54,9 @@ if viewer is None:
     print("*** 创建 Viewer 失败")
     quit()
 
-# 设置初始相机视角：从 Z 正方向观察原点
+
+#<-----------------------设置初始相机视角--------------------------->
+# 从 Z 正方向观察原点
 cam_pos = gymapi.Vec3(1.0, 1.0, 3.0)  # 相机位置
 cam_target = gymapi.Vec3(0.0, 0.0, 0.0)  # 观察点（原点）
 cam_transform = gymapi.Transform()
@@ -61,6 +67,7 @@ gym.viewer_camera_look_at(viewer, None, cam_pos, cam_target)
 gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_SPACE, "space_shoot")
 gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_R, "reset")
 gym.subscribe_viewer_mouse_event(viewer, gymapi.MOUSE_LEFT_BUTTON, "mouse_shoot")
+
 
 #<-----------------------靶装甲模型--------------------------->
 asset_root = "../../assets"
@@ -97,6 +104,27 @@ led_asset_options.density = 10.0
 led_asset = gym.create_sphere(sim, 0.05, led_asset_options)
 led_handles = []
 
+#<-----------------------内部相机参数--------------------------->
+camera_width=512
+camera_height=256
+
+camera_props = gymapi.CameraProperties()
+camera_props.horizontal_fov = 75.0
+camera_props.width = camera_width
+camera_props.height = camera_height
+camera_handles=[]
+
+# 视频监视
+video_fps=20
+video=[]
+video_writer=[]
+output_path="autoaim_capture"
+
+if args.capture_video and not os.path.exists(output_path):
+    os.mkdir(output_path)
+
+if not os.path.exists("multiple_camera_images"):
+    os.mkdir("multiple_camera_images")
 
 
 # 创建多个环境
@@ -117,6 +145,9 @@ rewards=[]
 env_rewards=[]
 
 
+
+
+#<-----------------------初始化--------------------------->
 for i in range(num_envs):
     lower = gymapi.Vec3(-spacing, 0.0, -spacing)
     upper = gymapi.Vec3(spacing, spacing, spacing)
@@ -174,23 +205,28 @@ for i in range(num_envs):
     # 设置刚度和阻尼
     robot_props["stiffness"].fill(1000.0)  
     robot_props["damping"].fill(100.0)     
+    robot_props['lower'].fill(-3.14)
+    robot_props['upper'].fill(3.14)
+
     gym.set_actor_dof_properties(env, robot_ahandle, robot_props)
 
-    dof_props = gym.get_actor_dof_properties(env, robot_ahandle)
-    dof_props['lower'][0] = -3.14
-    dof_props['upper'][0] = 3.14
-    dof_props['lower'][1] = -3.14
-    dof_props['upper'][1] = 3.14
-    print("Lower limits:", dof_props['lower'])
-    print("Upper limits:", dof_props['upper'])
-    
-    gym.set_actor_dof_properties(env, robot_ahandle, dof_props)
+
+    # 初始化状态
+    robot_init_states = gym.get_actor_dof_states(env, robot_ahandle, gymapi.STATE_ALL)
+    robot_init_states['pos'][0] = 0.0  # 对应第一个 DOF
+    robot_init_states['pos'][1] = 0.0  # 对应第二个 DOF
+    robot_init_states['vel'][:] = 0.0
+    gym.set_actor_dof_states(env, robot_ahandle, robot_init_states, gymapi.STATE_ALL)
+
+
+    body_names = gym.get_actor_rigid_body_names(env, robot_ahandle)
+    print(body_names)
 
     #<-----------------------弹丸--------------------------->
     env_bullet_handles = []  # 当前环境下的所有 bullet handle
     for k in range(10):
         bullet_pose = gymapi.Transform()
-        bullet_pose.p = gymapi.Vec3(0, 0, k*0.1-0.5)  
+        bullet_pose.p = gymapi.Vec3(1.5, 0, k*0.1-0.5)  
         bullet_pose.r = gymapi.Quat(0, 0, 0, 1)
 
         bullet_ahandle = gym.create_actor(env, bullet_asset, bullet_pose, "bullet"+ str(k), i, 0)
@@ -203,7 +239,7 @@ for i in range(num_envs):
     
     #<-----------------------指示灯--------------------------->
     led_pose = gymapi.Transform()
-    led_pose.p = gymapi.Vec3(-0.5, 0, 0)  
+    led_pose.p = gymapi.Vec3(-1, 0, 0)  
     led_pose.r = gymapi.Quat(0, 0, 0, 1)
 
     led_ahandle = gym.create_actor(env, led_asset, led_pose, "led", i, 0)
@@ -213,6 +249,12 @@ for i in range(num_envs):
     gym.set_rigid_body_color(env, led_ahandle, 0, gymapi.MESH_VISUAL_AND_COLLISION,
                             gymapi.Vec3(led_color[0], led_color[1], led_color[2]))
     led_handles.append(led_ahandle)
+
+    #<-----------------------内部相机--------------------------->
+    camera_pos = gymapi.Vec3(0, 0, 0)
+    camera_ahandle=gym.create_camera_sensor(env,camera_props)
+    gym.set_camera_transform(camera_ahandle, env, gymapi.Transform(p=camera_pos, r=gymapi.Quat()))
+    camera_handles.append(camera_ahandle)
 
     #<-----------------------结算--------------------------->
 
@@ -225,6 +267,14 @@ for i in range(num_envs):
     rewards.append([0,0,0,0])
     env_rewards.append(0)
     hit_maker.append(0)
+
+    #<-----------------------结算--------------------------->
+    # 创建 OpenCV 视频写入器
+    video_filename = os.path.join(output_path, "camera_env%d_video.mp4" % i)
+    video_ahandle = cv2.VideoWriter_fourcc(*'mp4v')  # 或 'XVID' 保存为 .avi
+    video_writer_ahandle = cv2.VideoWriter(video_filename, video_ahandle, video_fps, (camera_width, camera_height))# 相机视角
+    video.append(video_ahandle)
+    video_writer.append(video_writer_ahandle)
 
 
 
@@ -290,6 +340,8 @@ def draw_wire_sphere(gym, viewer, env, center, radius=0.1, segments=32, color=gy
 
 # 主循环
 while not gym.query_viewer_has_closed(viewer):
+
+    gym.render_all_camera_sensors(sim)
     gym.simulate(sim)
     gym.fetch_results(sim, True)
 
@@ -310,21 +362,23 @@ while not gym.query_viewer_has_closed(viewer):
     Armor_move(actor_handles,target_pos,target_pos_random,target_vel,target_vel_random)
 
 
-    # <-------机器人瞄准----------> 
     for i in range(num_envs):
 
+        # <-------机器人瞄准----------> 
         pitch_link_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "Pitch_link", gymapi.DOMAIN_ENV)
         # pitch_transform = gym.get_rigid_transform(envs[i], pitch_link_index)
-        pitch_transform = gym.get_rigid_transform(envs[i], 17)
+        pitch_transform = gym.get_rigid_transform(envs[i], pitch_link_index)
 
-
+        # print(pitch_transform.p)
         # 子弹初始位置
         spawn = pitch_transform.p
-
         # 定义在 Pitch_link 局部坐标系中的偏移量
         local_offset = gymapi.Vec3(0.22, 0.0, 0.0)
         # 将局部偏移转换为世界坐标系中的位置
         spawn_position = pitch_transform.transform_point(local_offset)
+
+
+
 
         # 特权信息，装甲板中间位置
         armor_link_index = gym.find_actor_rigid_body_index(envs[i], actor_handles[i], "move_link", gymapi.DOMAIN_ENV)
@@ -365,8 +419,40 @@ while not gym.query_viewer_has_closed(viewer):
 
         # aim_angle[0]=0
         # aim_angle[1]=0.08
+
         gym.set_actor_dof_position_targets(envs[i], robot_handles[i], aim_angle)
 
+
+        #  <-------相机位置----------> 
+
+        # 获取该链接的刚体 handle
+        pitch_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "Pitch_link", gymapi.DOMAIN_ACTOR)
+        body_handle = gym.get_actor_rigid_body_handle(envs[i], robot_handles[i], pitch_index)
+
+        # 设置相机相对于该 link 的局部偏移变换
+        camera_local_transform = gymapi.Transform()
+        camera_local_transform.p = gymapi.Vec3(0.22, 0.0, 0.1)  # 相对于 link 的相机位置偏移
+        # camera_local_transform.r = gymapi.Quat.from_axis_angle(gymapi.Vec3(0, 1, 0), np.radians(270.0))  # 设置相机朝向
+        camera_local_transform.r = gymapi.Quat.from_euler_zyx(np.radians(-90), np.radians(180), np.radians(90))
+        # 将相机附加到该刚体上
+        gym.attach_camera_to_body(camera_handles[i], envs[i], body_handle, camera_local_transform, gymapi.FOLLOW_TRANSFORM)  
+
+
+        #  <-------相机采样----------> 
+        if args.capture_video:
+
+            image = gym.get_camera_image(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR)
+            if image is None:
+                continue
+
+            # 将图像转换为 OpenCV 格式
+            img_np = np.frombuffer(image, dtype=np.uint8).reshape(camera_height, camera_width, 4)  # H, W, RGBA
+            bgr_img = cv2.cvtColor(img_np[..., :3], cv2.COLOR_RGB2BGR)  # 去除 alpha 并转 BGR
+            video_writer[i].write(bgr_img)
+
+
+        # rgb_filename = "multiple_camera_images/rgb_env%d_cam0.png" % (i)
+        # gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
 
         #  <-------可视化更新----------> 
 
@@ -420,6 +506,12 @@ while not gym.query_viewer_has_closed(viewer):
             if bullet_index[i]>=10:
                 bullet_index[i]=0
             
+            # 打弹时刻截图
+            rgb_filename = "multiple_camera_images/rgb_env%d_cam0.png" % (i)
+            gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
+
+
+
         # 击打检测
         # 获取接触力张量
         net_contact_force_tensor = gym.acquire_net_contact_force_tensor(sim)
@@ -466,16 +558,8 @@ while not gym.query_viewer_has_closed(viewer):
             led_color_ok = [0.8,0,0]
 
         gym.set_rigid_body_color(envs[i], led_handles[i], 0, gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
-        print(hit_maker)
+        # print(hit_maker)
 
-    # 根据rewards更新
-    # if sum(rewards)>0:
-    #     gym.clear_lines(viewer)
-    #     for idx in range(len(rewards)):
-    #         for num in range(rewards[idx]):
-    #             center_point=gymapi.Vec3(aim_board_position[idx].x,aim_board_position[idx].y+0.5+(0.2*num),aim_board_position[idx].z)
-    #             draw_hit_count(gym, viewer, env, center_point, rewards[idx])
-    #             print(center_point)
 
     # 渲染更新
     gym.step_graphics(sim)
@@ -484,6 +568,7 @@ while not gym.query_viewer_has_closed(viewer):
 
 print(rewards)
 print(env_rewards)
+
 # 释放资源
 gym.destroy_viewer(viewer)
 gym.destroy_sim(sim)
