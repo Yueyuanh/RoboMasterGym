@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Gold">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0222587093089663 6.60897232716074E-19 -0.0145481760189322"
+        rpy="0 0 0" />
+      <mass
+        value="7.642304" />
+      <inertia
+        ixx="0.0484345390421333"
+        ixy="5.32635579750595E-36"
+        ixz="4.05902522986137E-19"
+        iyy="0.0484345390421333"
+        iyz="-1.43562501936272E-18"
+        izz="0.0484345390421333" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="yellow">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="RL1">
+    <inertial>
+      <origin
+        xyz="0.10049 0.076754 5E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00078657" />
+      <inertia
+        ixx="2.4585E-07"
+        ixy="-7.9913E-08"
+        ixz="-2.0639E-26"
+        iyy="3.2517E-07"
+        iyz="-2.1766E-26"
+        izz="5.7102E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL1.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ1"
+    type="fixed">
+    <origin
+      xyz="-0.12041 -0.1 -0.085485"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Rl2">
+    <inertial>
+      <origin
+        xyz="0.10049 -0.076754 -5E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00078657" />
+      <inertia
+        ixx="2.4585E-07"
+        ixy="7.9913E-08"
+        ixz="-1.3223E-24"
+        iyy="3.2517E-07"
+        iyz="2.307E-24"
+        izz="5.7102E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/Rl2.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/Rl2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ2"
+    type="fixed">
+    <origin
+      xyz="-0.12226 0.098155 -0.085485"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rl2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL3">
+    <inertial>
+      <origin
+        xyz="0.10049 0.076754 5E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00078657" />
+      <inertia
+        ixx="2.4585E-07"
+        ixy="-7.9913E-08"
+        ixz="-5.419E-24"
+        iyy="3.2517E-07"
+        iyz="-2.1826E-23"
+        izz="5.7102E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL3.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ3"
+    type="fixed">
+    <origin
+      xyz="0.075896 0.1 -0.085485"
+      rpy="1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL4">
+    <inertial>
+      <origin
+        xyz="0.10049 0.076754 5E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00078657" />
+      <inertia
+        ixx="2.4585E-07"
+        ixy="-7.9913E-08"
+        ixz="-1.2888E-25"
+        iyy="3.2517E-07"
+        iyz="-1.3903E-24"
+        izz="5.7102E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL4.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ4"
+    type="fixed">
+    <origin
+      xyz="0.077741 -0.098155 -0.085485"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL5">
+    <inertial>
+      <origin
+        xyz="1.0408E-17 7.1432E-07 5E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00028" />
+      <inertia
+        ixx="2.0734E-08"
+        ixy="3.6E-09"
+        ixz="-9.5019E-28"
+        iyy="2.0734E-08"
+        iyz="-1.0054E-26"
+        izz="4.1467E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL5.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ5"
+    type="fixed">
+    <origin
+      xyz="-0.022259 0 0.085552"
+      rpy="3.1416 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL6">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL6.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Gold/meshes/RL6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RJ6"
+    type="fixed">
+    <origin
+      xyz="-0.0222594236311273 0 -0.114548176018932"
+      rpy="-3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL6" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

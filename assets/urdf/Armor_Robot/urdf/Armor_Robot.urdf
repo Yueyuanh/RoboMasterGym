@@ -15,7 +15,7 @@
       <inertia
         ixx="0.00536061385559418"
         ixy="1.9347577475559E-19"
-        ixz="1.05879118406788E-19"
+        ixz="1.3377114869985E-19"
         iyy="0.421962176355594"
         iyz="-8.392727982218E-20"
         izz="0.424580430670725" />
@@ -106,16 +106,16 @@
     name="body_link">
     <inertial>
       <origin
-        xyz="0.00323410697082154 -0.000824032968703474 0.0434141574886306"
+        xyz="0.00323410697082153 -0.000824032968703464 0.0434141574886305"
         rpy="0 0 0" />
       <mass
         value="1.43184052536946" />
       <inertia
         ixx="0.0108592385234091"
-        ixy="-6.5109540176561E-07"
-        ixz="6.16574138294677E-06"
+        ixy="-6.5109540176497E-07"
+        ixz="6.16574138294673E-06"
         iyy="0.0123197521096828"
-        iyz="-5.52200427322481E-11"
+        iyz="-5.52200428477679E-11"
         izz="0.0213749566414504" />
     </inertial>
     <visual>
@@ -159,17 +159,17 @@
     name="Armor_link_1">
     <inertial>
       <origin
-        xyz="0.214050358392136 1.38917947951772E-08 0.025955492616969"
+        xyz="0.21405 1.3892E-08 0.025955"
         rpy="0 0 0" />
       <mass
-        value="0.0509456108266251" />
+        value="0.050946" />
       <inertia
-        ixx="0.000140719394477131"
-        ixy="-1.17811642299605E-10"
-        ixz="1.63508587007056E-05"
-        iyy="6.70385490466247E-05"
-        iyz="4.59266050932402E-10"
-        izz="8.30016361783188E-05" />
+        ixx="0.00014072"
+        ixy="-1.1781E-10"
+        ixz="1.6351E-05"
+        iyy="6.7039E-05"
+        iyz="4.5927E-10"
+        izz="8.3002E-05" />
     </inertial>
     <visual>
       <origin
@@ -182,7 +182,7 @@
       <material
         name="">
         <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+          rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
     <collision>
@@ -212,17 +212,17 @@
     name="Armor_light_link_1">
     <inertial>
       <origin
-        xyz="0.221572317515096 -1.3918964559493E-11 0.0264442598982487"
+        xyz="0.22157 -1.3919E-11 0.026444"
         rpy="0 0 0" />
       <mass
-        value="0.00710803062860533" />
+        value="0.007108" />
       <inertia
-        ixx="2.10647026235042E-06"
-        ixy="1.27335675706779E-14"
-        ixz="5.17464492683663E-07"
-        iyy="2.24468146899285E-06"
-        iyz="-4.34480155662021E-14"
-        izz="3.13920665587173E-07" />
+        ixx="2.1065E-06"
+        ixy="1.2734E-14"
+        ixz="5.1746E-07"
+        iyy="2.2447E-06"
+        iyz="-4.3448E-14"
+        izz="3.1392E-07" />
     </inertial>
     <visual>
       <origin
@@ -233,7 +233,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_1.STL" />
       </geometry>
       <material
-        name="red">
+        name="">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -265,17 +265,17 @@
     name="Armor_board_link_1">
     <inertial>
       <origin
-        xyz="0.227888924688787 8.30714660844396E-10 0.0280694967851134"
+        xyz="0.2279 8.3068E-10 0.028072"
         rpy="0 0 0" />
       <mass
-        value="0.0479070281599563" />
+        value="0.048187" />
       <inertia
-        ixx="0.000126496786689491"
-        ixy="7.12723217494788E-18"
-        ixz="1.5917583738605E-05"
-        iyy="6.37415098353665E-05"
-        iyz="-3.05683412306875E-17"
-        izz="7.13566591514974E-05" />
+        ixx="0.000127"
+        ixy="9.2621E-20"
+        ixz="1.5976E-05"
+        iyy="6.3975E-05"
+        iyz="1.1293E-19"
+        izz="7.1656E-05" />
     </inertial>
     <visual>
       <origin
@@ -286,7 +286,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_1.STL" />
       </geometry>
       <material
-        name="black">
+        name="">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -315,20 +315,73 @@
       xyz="0 0 0" />
   </joint>
   <link
+    name="Armor_num_link_1">
+    <inertial>
+      <origin
+        xyz="0.22945 0.0084094 0.02828"
+        rpy="0 0 0" />
+      <mass
+        value="0.00034078" />
+      <inertia
+        ixx="4.0012E-07"
+        ixy="7.5418E-10"
+        ixz="8.5023E-08"
+        iyy="3.4009E-07"
+        iyz="-2.8146E-09"
+        izz="1.0559E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_1.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="Armor_num_joint_1"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Armor_board_link_1" />
+    <child
+      link="Armor_num_link_1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
     name="Armor_link_2">
     <inertial>
       <origin
-        xyz="1.67830530456176E-08 -0.205050357307338 0.0559554955609896"
+        xyz="1.67830696248036E-08 -0.205050357307329 0.0559554955610215"
         rpy="0 0 0" />
       <mass
-        value="0.0509456157055777" />
+        value="0.050945615705612" />
       <inertia
-        ixx="6.70385544564837E-05"
-        ixy="1.16186315319012E-10"
-        ixz="4.54452911877279E-10"
-        iyy="0.00014071940410559"
-        iyz="-1.6350860341057E-05"
-        izz="8.3001641456778E-05" />
+        ixx="6.70385544565706E-05"
+        ixy="1.1618630452987E-10"
+        ixz="4.54452869165702E-10"
+        iyy="0.000140719404105713"
+        iyz="-1.63508603410776E-05"
+        izz="8.30016414568248E-05" />
     </inertial>
     <visual>
       <origin
@@ -371,17 +424,17 @@
     name="Armor_light_link_2">
     <inertial>
       <origin
-        xyz="-1.39188996699929E-11 -0.212572317515096 0.0564442598982487"
+        xyz="-1.3919E-11 -0.21257 0.056444"
         rpy="0 0 0" />
       <mass
-        value="0.00710803062860532" />
+        value="0.007108" />
       <inertia
-        ixx="2.24468146899284E-06"
-        ixy="-1.2733567640161E-14"
-        ixz="-4.34480159558041E-14"
-        iyy="2.10647026235042E-06"
-        iyz="-5.17464492683663E-07"
-        izz="3.13920665587172E-07" />
+        ixx="2.2447E-06"
+        ixy="-1.2734E-14"
+        ixz="-4.3448E-14"
+        iyy="2.1065E-06"
+        iyz="-5.1746E-07"
+        izz="3.1392E-07" />
     </inertial>
     <visual>
       <origin
@@ -392,7 +445,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_2.STL" />
       </geometry>
       <material
-        name="red">
+        name="">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -424,17 +477,17 @@
     name="Armor_board_link_2">
     <inertial>
       <origin
-        xyz="8.30714720536502E-10 -0.218888924688787 0.0580694967851135"
+        xyz="8.30680123428337E-10 -0.218896581535879 0.0580715484311269"
         rpy="0 0 0" />
       <mass
-        value="0.0479070281599565" />
+        value="0.0481867874495532" />
       <inertia
-        ixx="6.37415098353667E-05"
-        ixy="-7.16016095618749E-18"
-        ixz="-3.06961148502026E-17"
-        iyy="0.000126496786689491"
-        iyz="-1.59175837386051E-05"
-        izz="7.13566591514976E-05" />
+        ixx="6.39748637618369E-05"
+        ixy="-1.28431106957352E-19"
+        ixz="-2.11911365503264E-20"
+        iyy="0.000126997669638442"
+        iyz="-1.59756619204251E-05"
+        izz="7.16563533769967E-05" />
     </inertial>
     <visual>
       <origin
@@ -444,8 +497,8 @@
         <mesh
           filename="package://Armor_Robot/meshes/Armor_board_link_2.STL" />
       </geometry>
-       <material
-        name="black">
+      <material
+        name="">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -474,20 +527,73 @@
       xyz="0 0 0" />
   </joint>
   <link
+    name="Armor_num_link_2">
+    <inertial>
+      <origin
+        xyz="0.00840944059962741 -0.220448164013808 0.0582803425975888"
+        rpy="0 0 0" />
+      <mass
+        value="0.000340775843454777" />
+      <inertia
+        ixx="3.40092980656507E-07"
+        ixy="-7.54176109816083E-10"
+        ixz="-2.81462765480805E-09"
+        iyy="4.00122456800335E-07"
+        iyz="-8.50231037345994E-08"
+        izz="1.05593788384602E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_2.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="Armor_num_joint_2"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Armor_board_link_2" />
+    <child
+      link="Armor_num_link_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
     name="Armor_link_3">
     <inertial>
       <origin
-        xyz="-0.214050358392136 -1.38917946742684E-08 0.025955492616969"
+        xyz="-0.214050358392127 -1.38918112584078E-08 0.0259554926170008"
         rpy="0 0 0" />
       <mass
-        value="0.0509456108266248" />
+        value="0.0509456108266588" />
       <inertia
-        ixx="0.000140719394477132"
-        ixy="-1.17811642699845E-10"
-        ixz="-1.63508587007058E-05"
-        iyy="6.7038549046626E-05"
-        iyz="-4.59266053043003E-10"
-        izz="8.30016361783179E-05" />
+        ixx="0.000140719394477255"
+        ixy="-1.17811631903681E-10"
+        ixz="-1.63508587007265E-05"
+        iyy="6.70385490467131E-05"
+        iyz="-4.592660103053E-10"
+        izz="8.30016361783646E-05" />
     </inertial>
     <visual>
       <origin
@@ -530,17 +636,17 @@
     name="Armor_light_link_3">
     <inertial>
       <origin
-        xyz="-0.221572317515096 1.39189350319244E-11 0.0264442598982487"
+        xyz="-0.22157 1.3919E-11 0.026444"
         rpy="0 0 0" />
       <mass
-        value="0.00710803062860533" />
+        value="0.007108" />
       <inertia
-        ixx="2.10647026235042E-06"
-        ixy="1.27335675607517E-14"
-        ixz="-5.17464492683664E-07"
-        iyy="2.24468146899284E-06"
-        iyz="4.34480156869704E-14"
-        izz="3.13920665587173E-07" />
+        ixx="2.1065E-06"
+        ixy="1.2734E-14"
+        ixz="-5.1746E-07"
+        iyy="2.2447E-06"
+        iyz="4.3448E-14"
+        izz="3.1392E-07" />
     </inertial>
     <visual>
       <origin
@@ -551,7 +657,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_3.STL" />
       </geometry>
       <material
-        name="red">
+        name="">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -583,17 +689,17 @@
     name="Armor_board_link_3">
     <inertial>
       <origin
-        xyz="-0.227888924688787 -8.30714592387193E-10 0.0280694967851134"
+        xyz="-0.227896581535879 -8.30680049377329E-10 0.0280715484311268"
         rpy="0 0 0" />
       <mass
-        value="0.0479070281599564" />
+        value="0.0481867874495531" />
       <inertia
-        ixx="0.00012649678668949"
-        ixy="7.17983656564921E-18"
-        ixz="-1.5917583738605E-05"
-        iyy="6.37415098353664E-05"
-        iyz="3.0658687483313E-17"
-        izz="7.13566591514974E-05" />
+        ixx="0.000126997669638441"
+        ixy="1.45289253109561E-19"
+        ixz="-1.5975661920425E-05"
+        iyy="6.39748637618367E-05"
+        iyz="-1.54911827414891E-20"
+        izz="7.16563533769965E-05" />
     </inertial>
     <visual>
       <origin
@@ -604,7 +710,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_3.STL" />
       </geometry>
       <material
-        name="black">
+        name="">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -633,20 +739,73 @@
       xyz="0 0 0" />
   </joint>
   <link
+    name="Armor_num_link_3">
+    <inertial>
+      <origin
+        xyz="-0.229448164013808 -0.00840944059962693 0.0282803425975881"
+        rpy="0 0 0" />
+      <mass
+        value="0.00034077584345476" />
+      <inertia
+        ixx="4.00122456800331E-07"
+        ixy="7.54176109815772E-10"
+        ixz="-8.50231037345989E-08"
+        iyy="3.40092980656505E-07"
+        iyz="2.81462765480678E-09"
+        izz="1.055937883846E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_3.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="Armor_num_joint_3"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Armor_board_link_3" />
+    <child
+      link="Armor_num_link_3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
     name="Armor_link_4">
     <inertial>
       <origin
-        xyz="-1.67830711754295E-08 0.205050357307346 0.0559554955609644"
+        xyz="-1.67830877340156E-08 0.205050357307338 0.0559554955609963"
         rpy="0 0 0" />
       <mass
-        value="0.0509456157056193" />
+        value="0.0509456157056531" />
       <inertia
-        ixx="6.70385544565383E-05"
-        ixy="1.16186328155072E-10"
-        ixz="-4.54452946991432E-10"
-        iyy="0.000140719404105667"
-        iyz="1.63508603410744E-05"
-        izz="8.30016414568137E-05" />
+        ixx="6.70385544566252E-05"
+        ixy="1.16186317350392E-10"
+        ixz="-4.54452904280234E-10"
+        iyy="0.000140719404105789"
+        iyz="1.6350860341095E-05"
+        izz="8.30016414568596E-05" />
     </inertial>
     <visual>
       <origin
@@ -689,17 +848,17 @@
     name="Armor_light_link_4">
     <inertial>
       <origin
-        xyz="1.39190009344758E-11 0.212572317515096 0.0564442598982486"
+        xyz="1.3919E-11 0.21257 0.056444"
         rpy="0 0 0" />
       <mass
-        value="0.00710803062860533" />
+        value="0.007108" />
       <inertia
-        ixx="2.24468146899284E-06"
-        ixy="-1.27335677096442E-14"
-        ixz="4.34480165050521E-14"
-        iyy="2.10647026235042E-06"
-        iyz="5.17464492683663E-07"
-        izz="3.13920665587172E-07" />
+        ixx="2.2447E-06"
+        ixy="-1.2734E-14"
+        ixz="4.3448E-14"
+        iyy="2.1065E-06"
+        iyz="5.1746E-07"
+        izz="3.1392E-07" />
     </inertial>
     <visual>
       <origin
@@ -710,7 +869,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_4.STL" />
       </geometry>
       <material
-        name="red">
+        name="">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -742,17 +901,17 @@
     name="Armor_board_link_4">
     <inertial>
       <origin
-        xyz="-8.30714627078274E-10 0.218888924688787 0.0580694967851134"
+        xyz="-8.3068E-10 0.2189 0.058072"
         rpy="0 0 0" />
       <mass
-        value="0.0479070281599563" />
+        value="0.048187" />
       <inertia
-        ixx="6.37415098353665E-05"
-        ixy="-7.13095439526534E-18"
-        ixz="3.06344345266024E-17"
-        iyy="0.000126496786689491"
-        iyz="1.5917583738605E-05"
-        izz="7.13566591514975E-05" />
+        ixx="6.3975E-05"
+        ixy="-9.8541E-20"
+        ixz="-3.691E-20"
+        iyy="0.000127"
+        iyz="1.5976E-05"
+        izz="7.1656E-05" />
     </inertial>
     <visual>
       <origin
@@ -763,7 +922,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_4.STL" />
       </geometry>
       <material
-        name="black">
+        name="">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -788,6 +947,59 @@
       link="Armor_link_4" />
     <child
       link="Armor_board_link_4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Armor_num_link_4">
+    <inertial>
+      <origin
+        xyz="-0.0084094 0.22045 0.05828"
+        rpy="0 0 0" />
+      <mass
+        value="0.00034078" />
+      <inertia
+        ixx="3.4009E-07"
+        ixy="-7.5418E-10"
+        ixz="2.8146E-09"
+        iyy="4.0012E-07"
+        iyz="8.5023E-08"
+        izz="1.0559E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Armor_Robot/meshes/Armor_num_link_4.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <joint
+    name="Armor_num_joint_4"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Armor_board_link_4" />
+    <child
+      link="Armor_num_link_4" />
     <axis
       xyz="0 0 0" />
   </joint>

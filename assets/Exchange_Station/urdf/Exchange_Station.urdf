@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Exchange_Station">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.17399 -0.11056 0.083009"
+        rpy="0 0 0" />
+      <mass
+        value="9.4012E-06" />
+      <inertia
+        ixx="1.0973E-11"
+        ixy="-2.7657E-14"
+        ixz="-1.4192E-12"
+        iyy="1.0955E-09"
+        iyz="5.6961E-14"
+        izz="1.0845E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="L1">
+    <inertial>
+      <origin
+        xyz="0.092915 0.12038 0.36763"
+        rpy="0 0 0" />
+      <mass
+        value="0.5963" />
+      <inertia
+        ixx="0.0060483"
+        ixy="0.0010503"
+        ixz="0.0018288"
+        iyy="0.011589"
+        iyz="0.00047736"
+        izz="0.011888" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L1.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.2020000000001"
+      rpy="0 0 3.14" />
+     <limit lower="-0.5" upper="0.5" effort="1000" velocity="100.0"/>
+    <parent
+      link="base_link" />
+    <child
+      link="L1" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L2">
+    <inertial>
+      <origin
+        xyz="0.3678 0.053005 -0.022493"
+        rpy="0 0 0" />
+      <mass
+        value="0.37826" />
+      <inertia
+        ixx="0.0020262"
+        ixy="0.00060414"
+        ixz="-3.1207E-05"
+        iyy="0.0061416"
+        iyz="-1.0729E-05"
+        izz="0.0061231" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L2.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J2"
+    type="revolute">
+    <origin
+      xyz="0.180000000000083 -0.13599999999999 0.300599999999966"
+      rpy="1.5707963267949 -1.5707963267949 0" />
+     <limit lower="-1.57" upper="0.2" effort="1000" velocity="100.0"/>
+    <parent
+      link="L1" />
+    <child
+      link="L2" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L3">
+    <inertial>
+      <origin
+        xyz="0.2861 0.11399 -0.13883"
+        rpy="0 0 0" />
+      <mass
+        value="0.74928" />
+      <inertia
+        ixx="0.0046263"
+        ixy="-0.0010526"
+        ixz="-0.00023028"
+        iyy="0.013619"
+        iyz="-0.00090529"
+        izz="0.014513" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L3.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J3"
+    type="continuous">
+    <origin
+      xyz="0.760000000000334 0 0.0229999999999997"
+      rpy="3.14159265358979 0 1.5707963267949" />
+    <parent
+      link="L2" />
+    <child
+      link="L3" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L4">
+    <inertial>
+      <origin
+        xyz="0.1202 0.0056517 -0.1197"
+        rpy="0 0 0" />
+      <mass
+        value="1.1036" />
+      <inertia
+        ixx="0.015284"
+        ixy="-0.00011829"
+        ixz="-0.000791"
+        iyy="0.0093"
+        iyz="0.00022878"
+        izz="0.011409" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L4.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J4"
+    type="continuous">
+    <origin
+      xyz="0.75560833937857 0.0815845418051784 -0.112999999999991"
+      rpy="1.5707963267949 0 -1.57079632679498" />
+    <!-- <limit lower="-2" upper="2" effort="1000" velocity="100.0"/> -->
+    <parent
+      link="L3" />
+    <child
+      link="L4" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="L_R">
+    <inertial>
+      <origin
+        xyz="0.0042943 4.5581E-05 -0.25221"
+        rpy="0 0 0" />
+      <mass
+        value="0.11162" />
+      <inertia
+        ixx="0.00022253"
+        ixy="-3.4643E-08"
+        ixz="5.2044E-05"
+        iyy="0.00020864"
+        iyz="9.2825E-09"
+        izz="0.00040282" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_R.STL" />
+      </geometry>
+      <material
+        name="white">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_R.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L4" />
+    <child
+      link="L_R" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L5">
+    <inertial>
+      <origin
+        xyz="0.10338 0.0024643 -0.010197"
+        rpy="0 0 0" />
+      <mass
+        value="0.73428" />
+      <inertia
+        ixx="0.0010042"
+        ixy="4.4117E-05"
+        ixz="-6.5212E-06"
+        iyy="0.0027858"
+        iyz="1.5453E-08"
+        izz="0.0031931" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L5.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J5"
+    type="continuous">
+    <origin
+      xyz="0.274200000000296 0 -0.0855000000000423"
+      rpy="0 1.57079620573729 1.57079569431565" />
+    <!-- <limit lower="-1" upper="1" effort="1000" velocity="100.0"/> -->
+    <parent
+      link="L4" />
+    <child
+      link="L5" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="L6">
+    <inertial>
+      <origin
+        xyz="0.19365 -0.050275 -0.011889"
+        rpy="0 0 0" />
+      <mass
+        value="1.54" />
+      <inertia
+        ixx="0.010155"
+        ixy="0.00028938"
+        ixz="-9.6121E-06"
+        iyy="0.011197"
+        iyz="8.4277E-07"
+        izz="0.011226" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L6.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J6"
+    type="revolute">
+    <origin
+      xyz="0.209499999999998 0 0"
+      rpy="0 0 -1.5707963267949" />
+    <limit lower="-1.57" upper="0.5" effort="1000" velocity="100.0"/>
+    <parent
+      link="L5" />
+    <child
+      link="L6" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L_lighit">
+    <inertial>
+      <origin
+        xyz="0.19945 0.021135 0.0019544"
+        rpy="0 0 0" />
+      <mass
+        value="0.082498" />
+      <inertia
+        ixx="4.5664E-05"
+        ixy="1.9456E-09"
+        ixz="-2.0864E-07"
+        iyy="0.00016304"
+        iyz="1.9456E-09"
+        izz="0.00018554" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_lighit.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_lighit.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_light"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L6" />
+    <child
+      link="L_lighit" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_RFID">
+    <inertial>
+      <origin
+        xyz="0.31939 -0.019757 -9.413E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.021955" />
+      <inertia
+        ixx="3.3439E-05"
+        ixy="-3.5924E-10"
+        ixz="-3.6333E-11"
+        iyy="1.914E-05"
+        iyz="1.544E-09"
+        izz="1.4478E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_RFID.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_RFID.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_RFID"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L6" />
+    <child
+      link="L_RFID" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_base">
+    <inertial>
+      <origin
+        xyz="0.63097 -5.1948E-05 0.48823"
+        rpy="0 0 0" />
+      <mass
+        value="900.72" />
+      <inertia
+        ixx="209.32"
+        ixy="0.00027467"
+        ixz="-14.024"
+        iyy="289.49"
+        iyz="-0.00031051"
+        izz="166.42" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Exchange_Station/meshes/L_base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_base"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_base" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
