@@ -1,4 +1,3 @@
-
 import numpy as np
 from isaacgym import gymutil
 from isaacgym import gymapi
@@ -18,8 +17,9 @@ gym = gymapi.acquire_gym()
 args = gymutil.parse_arguments(
     description="Projectiles Example: Press SPACE to fire a projectile. Press R to reset the simulation.",
     custom_parameters=[
-        {"name": "--num_envs", "type": int, "default": 4, "help": "要创建的环境数量"},
-        {"name": "--capture_video", "action": "store_true", "help": "录制视频保存到本地"}
+        {"name": "--num_envs", "type": int, "default": 1, "help": "要创建的环境数量"},
+        {"name": "--capture_video", "action": "store_true", "help": "录制视频保存到本地"},
+        {"name": "--headless", "action": "store_true",  "help": "无渲染模式"}
         ])
 
 # 配置仿真参数
@@ -39,7 +39,11 @@ if args.use_gpu_pipeline:
     print("警告：强制使用 CPU 管线")
 
 # 创建仿真
-sim = gym.create_sim(args.compute_device_id, args.graphics_device_id, args.physics_engine, sim_params)
+graphics_device_id=0
+if args.headless:
+    graphics_device_id=-1
+
+sim = gym.create_sim(args.compute_device_id, graphics_device_id, args.physics_engine, sim_params)
 if sim is None:
     print("*** 创建仿真失败")
     quit()
@@ -49,24 +53,29 @@ plane_params = gymapi.PlaneParams()
 gym.add_ground(sim, plane_params)
 
 # 创建 viewer（必须）
-viewer = gym.create_viewer(sim, gymapi.CameraProperties())
-if viewer is None:
-    print("*** 创建 Viewer 失败")
-    quit()
+if args.headless:
+    viewer=None
+else:
+    viewer = gym.create_viewer(sim, gymapi.CameraProperties())
+    if viewer is None:
+        print("*** 创建 Viewer 失败")
+        quit()
 
 
 #<-----------------------设置初始相机视角--------------------------->
-# 从 Z 正方向观察原点
-cam_pos = gymapi.Vec3(1.0, 1.0, 3.0)  # 相机位置
-cam_target = gymapi.Vec3(0.0, 0.0, 0.0)  # 观察点（原点）
-cam_transform = gymapi.Transform()
-cam_transform.p = cam_pos
-gym.viewer_camera_look_at(viewer, None, cam_pos, cam_target)
+if not args.headless:
 
-# 监听按键/鼠标事件
-gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_SPACE, "space_shoot")
-gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_R, "reset")
-gym.subscribe_viewer_mouse_event(viewer, gymapi.MOUSE_LEFT_BUTTON, "mouse_shoot")
+    # 从 Z 正方向观察原点
+    cam_pos = gymapi.Vec3(1.0, 1.0, 3.0)  # 相机位置
+    cam_target = gymapi.Vec3(0.0, 0.0, 0.0)  # 观察点（原点）
+    cam_transform = gymapi.Transform()
+    cam_transform.p = cam_pos
+    gym.viewer_camera_look_at(viewer, None, cam_pos, cam_target)
+
+    # 监听按键/鼠标事件
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_SPACE, "space_shoot")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_R, "reset")
+    gym.subscribe_viewer_mouse_event(viewer, gymapi.MOUSE_LEFT_BUTTON, "mouse_shoot")
 
 
 #<-----------------------靶装甲模型--------------------------->
@@ -98,15 +107,12 @@ bullet_asset = gym.create_sphere(sim, 0.017, bullet_asset_options)
 bullet_handles = []
 bullet_index=[]
 
-#<-----------------------LED--------------------------->
-led_asset_options = gymapi.AssetOptions()
-led_asset_options.density = 10.0
-led_asset = gym.create_sphere(sim, 0.05, led_asset_options)
-led_handles = []
-
 #<-----------------------内部相机参数--------------------------->
-camera_width=512
-camera_height=256
+# camera_width=512
+# camera_height=256
+
+camera_width=1920
+camera_height=1080
 
 camera_props = gymapi.CameraProperties()
 camera_props.horizontal_fov = 75.0
@@ -115,7 +121,7 @@ camera_props.height = camera_height
 camera_handles=[]
 
 # 视频监视
-video_fps=20
+video_fps=25
 video=[]
 video_writer=[]
 output_path="autoaim_capture"
@@ -143,6 +149,7 @@ Z_Eular=-1.5707963705062866
 hit_maker=[] #击中可视化
 rewards=[]
 env_rewards=[]
+hit_board_id=[]
 
 
 
@@ -185,7 +192,14 @@ for i in range(num_envs):
     # 速度控制模式下，stiffness 应为 0，一般只使用 damping 控制阻尼
     props["stiffness"][1] = 1000.0
     props["damping"][1] = 50.0
+
+    # props['lower'].fill(-1000)
+    # props['upper'].fill(1000)
+
     gym.set_actor_dof_properties(env, ahandle, props)
+
+    armor_body_names = gym.get_actor_rigid_body_names(env, ahandle)
+    print(armor_body_names)
 
     #<-----------------------机器人--------------------------->
     # 设置初始姿态
@@ -205,16 +219,15 @@ for i in range(num_envs):
     # 设置刚度和阻尼
     robot_props["stiffness"].fill(1000.0)  
     robot_props["damping"].fill(100.0)     
-    robot_props['lower'].fill(-3.14)
-    robot_props['upper'].fill(3.14)
+    robot_props['lower'].fill(-1000)
+    robot_props['upper'].fill(1000)
 
     gym.set_actor_dof_properties(env, robot_ahandle, robot_props)
 
 
     # 初始化状态
     robot_init_states = gym.get_actor_dof_states(env, robot_ahandle, gymapi.STATE_ALL)
-    robot_init_states['pos'][0] = 0.0  # 对应第一个 DOF
-    robot_init_states['pos'][1] = 0.0  # 对应第二个 DOF
+    robot_init_states['pos'][:] = 0.0  # 对应第一个 DOF
     robot_init_states['vel'][:] = 0.0
     gym.set_actor_dof_states(env, robot_ahandle, robot_init_states, gymapi.STATE_ALL)
 
@@ -237,18 +250,6 @@ for i in range(num_envs):
                                 gymapi.Vec3(bullet_color[0], bullet_color[1], bullet_color[2]))
         env_bullet_handles.append(bullet_ahandle)
     
-    #<-----------------------指示灯--------------------------->
-    led_pose = gymapi.Transform()
-    led_pose.p = gymapi.Vec3(-1, 0, 0)  
-    led_pose.r = gymapi.Quat(0, 0, 0, 1)
-
-    led_ahandle = gym.create_actor(env, led_asset, led_pose, "led", i, 0)
-
-    # 设置颜色
-    led_color = [0.8,0,0]
-    gym.set_rigid_body_color(env, led_ahandle, 0, gymapi.MESH_VISUAL_AND_COLLISION,
-                            gymapi.Vec3(led_color[0], led_color[1], led_color[2]))
-    led_handles.append(led_ahandle)
 
     #<-----------------------内部相机--------------------------->
     camera_pos = gymapi.Vec3(0, 0, 0)
@@ -267,8 +268,9 @@ for i in range(num_envs):
     rewards.append([0,0,0,0])
     env_rewards.append(0)
     hit_maker.append(0)
+    hit_board_id.append(-1)
 
-    #<-----------------------结算--------------------------->
+    #<-----------------------视频录制--------------------------->
     # 创建 OpenCV 视频写入器
     video_filename = os.path.join(output_path, "camera_env%d_video.mp4" % i)
     video_ahandle = cv2.VideoWriter_fourcc(*'mp4v')  # 或 'XVID' 保存为 .avi
@@ -410,7 +412,7 @@ while not gym.query_viewer_has_closed(viewer):
         # print(yaw_set,pitch_set)
 
         aim_angle[0]=yaw_set
-        aim_angle[1]=pitch_set+3.14-0.05
+        aim_angle[1]=pitch_set+3.14-0.07
         # aim_angle[1]-=0.05
         # print(aim_angle)
 
@@ -451,27 +453,11 @@ while not gym.query_viewer_has_closed(viewer):
             video_writer[i].write(bgr_img)
 
 
-        # rgb_filename = "multiple_camera_images/rgb_env%d_cam0.png" % (i)
-        # gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
-
         #  <-------可视化更新----------> 
 
-        gym.clear_lines(viewer)
-        draw_wire_sphere(gym, viewer, envs[i], center=spawn_position, radius=0.017)
+        # gym.clear_lines(viewer)
+        # draw_wire_sphere(gym, viewer, envs[i], center=spawn_position, radius=0.017)
 
-        # 装甲坐标系
-        armor_link_pos = gym.find_actor_rigid_body_index(envs[i], actor_handles[i], "Armor_board_link_1", gymapi.DOMAIN_ENV)
-        armor_board_transform = gym.get_rigid_transform(envs[i], armor_link_pos)
-        aim_board_position=armor_board_transform.p
-
-        center_point=gymapi.Vec3(aim_board_position.x,aim_board_position.y+0.3,aim_board_position.z)
-
-        led_handle=led_handles[i]
-        led_state = gym.get_actor_rigid_body_states(envs[i], led_handle, gymapi.STATE_NONE)
-        led_state['pose']['p'].fill((center_point.x, center_point.y, center_point.z))
-        led_state['pose']['r'].fill((0, 0, 0, 1))
-        gym.set_actor_rigid_body_states(envs[i], led_handle, led_state, gymapi.STATE_ALL)
-    
 
         #  <-------射击操作----------> 
 
@@ -507,8 +493,9 @@ while not gym.query_viewer_has_closed(viewer):
                 bullet_index[i]=0
             
             # 打弹时刻截图
-            rgb_filename = "multiple_camera_images/rgb_env%d_cam0.png" % (i)
-            gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
+            # if args.capture_video:
+            #     rgb_filename = "multiple_camera_images/rgb_env%d_cam0.png" % (i)
+            #     gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
 
 
 
@@ -527,7 +514,26 @@ while not gym.query_viewer_has_closed(viewer):
             gym.find_actor_rigid_body_index(envs[i], actor_handle, "Armor_board_link_4", gymapi.DOMAIN_SIM)
         ]
 
+        for boards in range(4):          
+            gym.set_rigid_body_color(envs[i], actor_handle,
+                                    gym.get_actor_rigid_body_handle(envs[i], actor_handle, armor_link_indices[boards]),
+                                    gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(0,0,0))
 
+
+        armor_light_index= [
+            gym.find_actor_rigid_body_index(envs[i], actor_handle, "Armor_light_link_1", gymapi.DOMAIN_ACTOR),
+            gym.find_actor_rigid_body_index(envs[i], actor_handle, "Armor_light_link_2", gymapi.DOMAIN_ACTOR),
+            gym.find_actor_rigid_body_index(envs[i], actor_handle, "Armor_light_link_3", gymapi.DOMAIN_ACTOR),
+            gym.find_actor_rigid_body_index(envs[i], actor_handle, "Armor_light_link_4", gymapi.DOMAIN_ACTOR)
+        ]
+
+        armor_light_handles = [
+            gym.get_actor_rigid_body_handle(envs[i], actor_handle, armor_light_index[0]),
+            gym.get_actor_rigid_body_handle(envs[i], actor_handle, armor_light_index[1]),
+            gym.get_actor_rigid_body_handle(envs[i], actor_handle, armor_light_index[2]),
+            gym.get_actor_rigid_body_handle(envs[i], actor_handle, armor_light_index[3])
+
+        ]
 
 
         is_target=0
@@ -535,7 +541,7 @@ while not gym.query_viewer_has_closed(viewer):
         for idx, body_index in enumerate(armor_link_indices):
             contact_force = net_contact_force[body_index]
             force_magnitude = torch.norm(contact_force).item()
-            threshold=0.01
+            threshold=0.001
             if force_magnitude > threshold:
                 print(f"Env_{i+1}: Armor_{idx+1} 被击中！")
                 # 增加对应的奖励
@@ -543,22 +549,31 @@ while not gym.query_viewer_has_closed(viewer):
                 # 环境奖励总和
                 env_rewards[i]=sum(rewards[i])
                 is_target=1
+                hit_board_id[i]=idx
 
         # 击中提示
         if(is_target):
-            hit_maker[i]=50
+            hit_maker[i]=20
             is_target=0
 
         if hit_maker[i]>0:
             hit_maker[i]-=1
-
-        if hit_maker[i]>0:
-            led_color_ok = [0,0.8,0]
         else:
-            led_color_ok = [0.8,0,0]
+            hit_board_id[i]=-1
 
-        gym.set_rigid_body_color(envs[i], led_handles[i], 0, gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
-        # print(hit_maker)
+
+        if hit_board_id[i]==-1:
+            led_color_ok = [1,0,0]
+            gym.set_rigid_body_color(envs[i], actor_handle, armor_light_handles[0], gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
+            gym.set_rigid_body_color(envs[i], actor_handle, armor_light_handles[1], gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
+            gym.set_rigid_body_color(envs[i], actor_handle, armor_light_handles[2], gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
+            gym.set_rigid_body_color(envs[i], actor_handle, armor_light_handles[3], gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
+
+        else:
+            led_color_ok = [0.9,0.9,0.9]
+            gym.set_rigid_body_color(envs[i], actor_handle, armor_light_handles[hit_board_id[i]], gymapi.MESH_VISUAL_AND_COLLISION,gymapi.Vec3(led_color_ok[0], led_color_ok[1], led_color_ok[2]))
+
+        # print(i,hit_board_id)
 
 
     # 渲染更新
