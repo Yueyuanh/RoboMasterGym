@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Engineer_Robot">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0055963 0.017859 0.11879"
+        rpy="0 0 0" />
+      <mass
+        value="7.3797" />
+      <inertia
+        ixx="0.015845"
+        ixy="6.479E-07"
+        ixz="3.208E-06"
+        iyy="0.025117"
+        iyz="2.7788E-06"
+        izz="0.036817" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Armor_link">
+    <inertial>
+      <origin
+        xyz="-2.0487E-15 -3.3999E-15 0.22827"
+        rpy="0 0 0" />
+      <mass
+        value="1.0609" />
+      <inertia
+        ixx="0.04212"
+        ixy="-6.3375E-16"
+        ixz="-3.8306E-16"
+        iyy="0.04212"
+        iyz="5.5474E-16"
+        izz="0.043272" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/Armor_link.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/Armor_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Armor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Armor_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Armor_light_link">
+    <inertial>
+      <origin
+        xyz="7.5251E-16 2.1975E-15 0.13026"
+        rpy="0 0 0" />
+      <mass
+        value="0.028432" />
+      <inertia
+        ixx="8.7023E-06"
+        ixy="3.3947E-21"
+        ixz="1.5404E-20"
+        iyy="8.7023E-06"
+        iyz="1.7364E-20"
+        izz="1.2557E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/Armor_light_link.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/Armor_light_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Armor_light_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Armor_link" />
+    <child
+      link="Armor_light_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L1">
+    <inertial>
+      <origin
+        xyz="-0.060868 -0.002963 0.27584"
+        rpy="0 0 0" />
+      <mass
+        value="5.3051" />
+      <inertia
+        ixx="0.16383"
+        ixy="-2.5432E-06"
+        ixz="-5.6383E-05"
+        iyy="0.16306"
+        iyz="1.0311E-05"
+        izz="0.26379" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L1.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J1"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="L2">
+    <inertial>
+      <origin
+        xyz="-0.025806 0.014363 0.04429"
+        rpy="0 0 0" />
+      <mass
+        value="1.1249" />
+      <inertia
+        ixx="0.00091282"
+        ixy="5.7367E-05"
+        ixz="0.0001141"
+        iyy="0.0016549"
+        iyz="-2.0441E-05"
+        izz="0.0012244" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L2.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J2"
+    type="continuous">
+    <origin
+      xyz="0.25 0 0.2461"
+      rpy="0 0 0" />
+    <parent
+      link="L1" />
+    <child
+      link="L2" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L3">
+    <inertial>
+      <origin
+        xyz="0.20313 -0.00010391 -0.022422"
+        rpy="0 0 0" />
+      <mass
+        value="0.6239" />
+      <inertia
+        ixx="0.00031376"
+        ixy="1.5589E-06"
+        ixz="2.153E-05"
+        iyy="0.0063851"
+        iyz="-3.1694E-11"
+        izz="0.0065604" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L3.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J3"
+    type="revolute">
+    <origin
+      xyz="0 0.0584 0.04895"
+      rpy="-1.5707963267949 -0.296705972839045 3.14159265358977" />
+    <limit lower="-2" upper="0" effort="1000" velocity="100.0"/>
+    <parent
+      link="L2" />
+    <child
+      link="L3" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="L4">
+    <inertial>
+      <origin
+        xyz="0.034236 -0.013833 0.053129"
+        rpy="0 0 0" />
+      <mass
+        value="1.3522" />
+      <inertia
+        ixx="0.00095264"
+        ixy="3.551E-06"
+        ixz="-6.537E-05"
+        iyy="0.0009452"
+        iyz="-5.0083E-06"
+        izz="0.001477" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L4.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J4"
+    type="revolute">
+    <origin
+      xyz="0.38 0 0"
+      rpy="0 0 -2.70526034059121" />
+    <limit lower="-3.14" upper="0.0" effort="1000" velocity="100.0"/>
+    <parent
+      link="L3" />
+    <child
+      link="L4" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L5">
+    <inertial>
+      <origin
+        xyz="0.003077 0.014376 0.099804"
+        rpy="0 0 0" />
+      <mass
+        value="0.80501" />
+      <inertia
+        ixx="0.0014293"
+        ixy="1.1266E-05"
+        ixz="-9.1806E-07"
+        iyy="0.0012902"
+        iyz="-0.00012067"
+        izz="0.00044083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L5.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J5"
+    type="continuous">
+    <origin
+      xyz="0.155474398665704 -0.0549927158958655 0.0584"
+      rpy="0.139626340159536 1.5707963267949 0" />
+    <parent
+      link="L4" />
+    <child
+      link="L5" />
+    <axis
+      xyz="0 -0.139173100960056 -0.990268068741572" />
+  </joint>
+  <link
+    name="L6">
+    <inertial>
+      <origin
+        xyz="-0.014178 0.00034988 0.00019642"
+        rpy="0 0 0" />
+      <mass
+        value="0.23111" />
+      <inertia
+        ixx="7.4615E-05"
+        ixy="-4.115E-07"
+        ixz="-4.4427E-07"
+        iyy="5.8424E-05"
+        iyz="6.3801E-07"
+        izz="5.6898E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L6.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J6"
+    type="revolute">
+    <origin
+      xyz="0.00349999999999961 0.0334015442304132 0.237664336497977"
+      rpy="-1.57079632679491 -1.43116998663536 1.57079632679491" />
+    <limit lower="-1.57" upper="1.57" effort="1000" velocity="100.0"/>
+    <parent
+      link="L5" />
+    <child
+      link="L6" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L7">
+    <inertial>
+      <origin
+        xyz="9.331E-10 2.3856E-09 0.023897"
+        rpy="0 0 0" />
+      <mass
+        value="0.11514" />
+      <inertia
+        ixx="5.2794E-05"
+        ixy="1.0609E-08"
+        ixz="1.8723E-11"
+        iyy="5.2769E-05"
+        iyz="6.0169E-12"
+        izz="5.835E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/L7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J7"
+    type="continuous">
+    <origin
+      xyz="-0.00399871055885126 0.000101557208172787 0.00349917389544382"
+      rpy="0.025392030562591 1.5707963267949 0" />
+    <parent
+      link="L6" />
+    <child
+      link="L7" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="End_link">
+    <inertial>
+      <origin
+        xyz="-3.0656E-18 1.1102E-16 0.041125"
+        rpy="0 0 0" />
+      <mass
+        value="0.020654" />
+      <inertia
+        ixx="5.3233E-06"
+        ixy="2.1671E-22"
+        ixz="-3.4865E-22"
+        iyy="5.3233E-06"
+        iyz="-3.1764E-22"
+        izz="8.2808E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/End_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Engineer_Robot/meshes/End_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="End_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L7" />
+    <child
+      link="End_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

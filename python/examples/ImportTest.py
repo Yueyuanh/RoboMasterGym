@@ -95,7 +95,7 @@ for i in range(num_envs):
     pose = gymapi.Transform()
     pose.p = gymapi.Vec3(0.0, 1.0, 0.0)
     pose.r = gymapi.Quat(-0.707107, 0.0, 0.0, 0.707107)
-    ahandle = gym.create_actor(env, asset, pose, "ant", i, 1)
+    ahandle = gym.create_actor(env, asset, pose, "ant", i, 2)
     actor_handles.append(ahandle)
 
     # override default DOF properties loaded from MJCF to make the legs move more freely
@@ -110,7 +110,7 @@ for i in range(num_envs):
 proj_env = gym.create_env(sim, lower, upper, 4)
 proj_asset_options = gymapi.AssetOptions()
 proj_asset_options.density = 10.
-proj_asset = gym.create_box(sim, 0.3, 0.3, 0.3, proj_asset_options)
+proj_asset = gym.create_box(sim, 0.1, 0.1, 0.1, proj_asset_options)
 projectiles = []
 
 for i in range(20):

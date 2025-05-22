@@ -19,7 +19,7 @@ gym = gymapi.acquire_gym()
 args = gymutil.parse_arguments(
     description="Projectiles Example: Press SPACE to fire a projectile. Press R to reset the simulation.",
     custom_parameters=[
-        {"name": "--num_envs", "type": int, "default": 4, "help": "要创建的环境数量"},
+        {"name": "--num_envs", "type": int, "default": 1, "help": "要创建的环境数量"},
         {"name": "--capture_video", "action": "store_true", "help": "录制视频保存到本地"},
         {"name": "--headless", "action": "store_true",  "help": "无渲染模式"}
         ])
@@ -79,6 +79,13 @@ if not args.headless:
     gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_R, "init")
     gym.subscribe_viewer_mouse_event(viewer, gymapi.MOUSE_LEFT_BUTTON, "mouse_shoot")
 
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_W, "X+")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_S, "X-")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_A, "Y+")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_D, "Y-")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_Q, "Z+")
+    gym.subscribe_viewer_keyboard_event(viewer, gymapi.KEY_E, "Z-")
+
 
 #<-----------------------兑换站模型--------------------------->
 asset_root = "../../assets"
@@ -104,15 +111,27 @@ print(f"Joint names: {ik_solver.joint_names}")
 
 
 #<-----------------------机器人--------------------------->
-robot_file = gold_file = "urdf/Gold/urdf/Gold.urdf"
+robot_file = "urdf/Engineer_Robot/urdf/Engineer_Robot.urdf"
 
 robot_options = gymapi.AssetOptions()
 robot_options.fix_base_link = True
 robot = gym.load_asset(sim, asset_root, robot_file, robot_options)
 
+# robot_options.use_mesh_materials = False
+robot_ik_solver = TracIKSolver(
+    "../../assets/urdf/Engineer_Robot/urdf/Engineer_Robot.urdf",
+    "base_link",
+    "End_link",
+    solve_type="Distance"  # 或 "Spesed"
+    # solve_type="Speed"  # 或 "Speed"
+)
+# 打印信息
+print(f"Number of joints: {robot_ik_solver.number_of_joints}")
+print(f"Joint names: {robot_ik_solver.joint_names}")
+
 
 #<-----------------------矿石--------------------------->
-gold_file = "urdf/Gold/urdf/Gold.urdf"
+gold_file = "urdf/Gold_Ore/urdf/Gold_Ore.urdf"
 gold_options = gymapi.AssetOptions()
 gold = gym.load_asset(sim, asset_root, gold_file, gold_options)
 
@@ -146,7 +165,7 @@ if not os.path.exists("multiple_camera_images"):
 # 创建多个环境
 num_envs = args.num_envs
 num_per_row = int(sqrt(num_envs))
-spacing = 2
+spacing = 3
 
 envs = []
 bullet_envs = []
@@ -203,32 +222,31 @@ for i in range(num_envs):
     station_lower=props["lower"]
     station_upper=props["upper"]
 
-    # print(station_upper)
-    # armor_body_names = gym.get_actor_rigid_body_names(env, ahandle)
-    # print(armor_body_names)
+
 
 
     #<-----------------------机器人--------------------------->
     # 设置初始姿态
-    # robot_pose = gymapi.Transform()
-    # robot_pose.p = gymapi.Vec3(1, 0.0, 0.0)
+    robot_pose = gymapi.Transform()
+    robot_pose.p = gymapi.Vec3(0.75, 0.0, 0.0)
     # robot_pose.r = gymapi.Quat(-0.707107, 0.0, 0.0, 0.707107)
 
-    # robot_ahandle = gym.create_actor(env, robot, robot_pose, "robot", i, 1)
-    # robot_handles.append(robot_ahandle)
+    q = gymapi.Quat(-0.707107, 0.0, 0.0, 0.707107)
+    yaw, pitch, roll = q.to_euler_zyx()
+    robot_pose.r = gymapi.Quat.from_euler_zyx(yaw, pitch+np.pi, roll) # yaw pit rol
 
-    # # 设置机器人关节驱动
-    # robot_props = gym.get_actor_dof_properties(env, robot_ahandle)
-    # # 设置机器人PD控制器
-    # # 设置驱动模式为位置控制
-    # robot_props["driveMode"].fill(gymapi.DOF_MODE_POS)
+    robot_ahandle = gym.create_actor(env, robot, robot_pose, "robot", i, 1)
+    robot_handles.append(robot_ahandle)
 
-    # # 设置刚度和阻尼
-    # robot_props["stiffness"].fill(1000.0)  
-    # robot_props["damping"].fill(100.0)     
-    # robot_props['lower'].fill(-1000)
-    # robot_props['upper'].fill(1000)
-    # gym.set_actor_dof_properties(env, robot_ahandle, robot_props)
+    # 设置机器人关节驱动
+    robot_props = gym.get_actor_dof_properties(env, robot_ahandle)
+    # 设置机器人PD控制器
+    # 设置驱动模式为位置控制
+    robot_props["driveMode"].fill(gymapi.DOF_MODE_POS)
+    robot_props["stiffness"].fill(1000.0)  
+    robot_props["damping"].fill(200.0)     
+    gym.set_actor_dof_properties(env, robot_ahandle, robot_props)
+
 
     # # 初始化状态
     # robot_init_states = gym.get_actor_dof_states(env, robot_ahandle, gymapi.STATE_ALL)
@@ -236,17 +254,15 @@ for i in range(num_envs):
     # robot_init_states['vel'][:] = 0.0
     # gym.set_actor_dof_states(env, robot_ahandle, robot_init_states, gymapi.STATE_ALL)
 
-    # body_names = gym.get_actor_rigid_body_names(env, robot_ahandle)
-    # print(body_names)
 
     #<-----------------------矿石--------------------------->
 
     # 设置初始姿态
     gold_pose = gymapi.Transform()
-    gold_pose.p = gymapi.Vec3(1, 1, 0.0)
+    gold_pose.p = gymapi.Vec3(0.0, 5, 0.0)
     gold_pose.r = gymapi.Quat(-0.707107, 0.0, 0.0, 0.707107)
 
-    gold_ahandle = gym.create_actor(env, gold, gold_pose, "gold", i, 0)
+    gold_ahandle = gym.create_actor(env, gold, gold_pose, "gold", i, 1)
     gold_handles.append(gold_ahandle)
 
  
@@ -282,7 +298,7 @@ vid=[]
 
 
 # 使用关节选转
-def station_fk(ik_solver_handle,current_joints):
+def arm_fk(ik_solver_handle,current_joints):
         #求解器句柄,各个关节角度
         
         q = np.array(current_joints) 
@@ -302,7 +318,7 @@ def station_fk(ik_solver_handle,current_joints):
         # print("四元数:", quat)
     
 
-def station_ik(ik_solver_handle,init_joints,target_positions,target_angles):
+def arm_ik(ik_solver_handle,init_joints,target_positions,target_angles):
     # 目标末端位姿
     # position = [1, 1.0, 1.5]       # 位置 (x, y, z)
     # euler = [0.0, 0.0, -np.pi/2]      # 欧拉角 (roll, pitch, yaw)，单位：弧度
@@ -327,12 +343,12 @@ def station_ik(ik_solver_handle,init_joints,target_positions,target_angles):
         return target_joints,True
     
     else:
-        print("IK 解失败，未找到解")
+        print(str(ik_solver_handle)+":解失败，未找到解")
         return [0,0,0,0,0,0,0],False
 
 
 
-
+# <-------兑换站----------> 
 # 原始位置
 station_init_position=[0.8710,0.0,1.15]
 station_init_angle=[-1.57,0,1.57]
@@ -347,21 +363,51 @@ station_target_alg=[0,0,0]
 # 发送目标解算位置
 station_send_joints=[0,0,0,0,0,0,0]
 
+# <-------机器人----------> 
+
+robot_init_position=[0.2819,0.0,0.4063]
+robot_init_angle=[1.57,1.57,0]
+# 设定原位置偏转角度
+robot_target_pos_bias=[0,0,0]
+robot_target_alg_bias=[0,0,0]
+# 设定位置角度
+robot_target_pos=[0,0,0]
+robot_target_alg=[0,0,0]
+# 发送目标解算位置
+robot_send_joints=[0,0,0,0,0,0,0]
+
+
+
 station_send_joints_envs=[]
 station_target_pos_envs=[]
 station_target_alg_envs=[]
-
 station_target_pos_bias_envs=[]
 station_target_alg_bias_envs=[]
 
 
+robot_send_joints_envs=[]
+robot_target_pos_envs=[]
+robot_target_alg_envs=[]
+robot_target_pos_bias_envs=[]
+robot_target_alg_bias_envs=[]
+
+
+
 for _ in range(num_envs):
     station_send_joints_envs.append(station_send_joints)
-
     station_target_pos_envs.append(station_target_pos)
     station_target_alg_envs.append(station_target_alg)
     station_target_pos_bias_envs.append(station_target_pos_bias)
     station_target_alg_bias_envs.append(station_target_alg_bias)
+
+
+    robot_send_joints_envs.append(robot_send_joints)
+    robot_target_pos_envs.append(robot_target_pos)
+    robot_target_alg_envs.append(robot_target_alg)
+    robot_target_pos_bias_envs.append(robot_target_pos_bias)
+    robot_target_alg_bias_envs.append(robot_target_alg_bias)
+
+
 
 
 pos_ranges = np.array([
@@ -376,6 +422,19 @@ alg_ranges = np.array([
     [-0.5, 0.5], # r
 ])
    
+
+robot_pos_ranges = np.array([
+    [ 0.0, 0.25], # x
+    [-0.2, 0.2], # y
+    [ 0.0,0.4], # z
+])
+
+robot_alg_ranges = np.array([
+    [0, 1], # p
+    [-1,1], # y
+    [-0.5, 0.5], # r
+])
+   
 while not gym.query_viewer_has_closed(viewer):
 
     gym.render_all_camera_sensors(sim)
@@ -384,24 +443,94 @@ while not gym.query_viewer_has_closed(viewer):
 
 
 
-    # <-------操作发射----------> 
+    # <-------重启----------> 
     reset = False
     init  = False
+    robot_xyz=[False,False,False,False,False,False]
     for evt in gym.query_viewer_action_events(viewer):
         if (evt.action == "space_shoot" or evt.action == "mouse_shoot") and evt.value > 0:
             reset = True
         if evt.action == "init" and evt.value > 0:
             init=True
-
-
+        if evt.value>0:
+            if evt.action=="X+":robot_xyz[0]=True
+            elif evt.action=="X-":robot_xyz[1]=True
+            elif evt.action=="Y+":robot_xyz[2]=True
+            elif evt.action=="Y-":robot_xyz[3]=True
+            elif evt.action=="Z+":robot_xyz[4]=True
+            elif evt.action=="Z-":robot_xyz[5]=True
+            
 
     for i in range(num_envs):
 
+        # if robot_xyz[0]:robot_target_pos_bias_envs[i][0]+=0.05
+        # elif robot_xyz[1]:robot_target_pos_bias_envs[i][0]-=0.05
+        # elif robot_xyz[2]:robot_target_pos_bias_envs[i][1]+=0.05
+        # elif robot_xyz[3]:robot_target_pos_bias_envs[i][1]-=0.05
+        # elif robot_xyz[4]:robot_target_pos_bias_envs[i][2]+=0.05
+        # elif robot_xyz[5]:robot_target_pos_bias_envs[i][2]-=0.05
 
+
+
+        # robot_target_pos_bias_envs[i]=[0.3,0.0,0.0] #x 0.35,y,z
+        # robot_target_alg_bias_envs[i]=[0.5,0.0,0.0]   #p,y,r
+
+        robot_target_pos_envs[i]=np.array(robot_init_position)+np.array(robot_target_pos_bias_envs[i])
+        robot_target_alg_envs[i]=np.array(robot_init_angle)+np.array(robot_target_alg_bias_envs[i])
+
+
+        # 获取解算角度
+        robot_send_joints_envs[i],state=arm_ik(robot_ik_solver,robot_send_joints_envs[i],robot_target_pos_envs[i],robot_target_alg_envs[i])
+
+        gym.set_actor_dof_position_targets(envs[i], robot_handles[i], robot_send_joints_envs[i])
+
+
+
+        # 吸矿
+        # 获取末端位置
+        end_link_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "End_link", gymapi.DOMAIN_ENV)
+        end_transform = gym.get_rigid_transform(envs[i], end_link_index)
+        # end_pose=end_transform.p
+        local_offset = gymapi.Vec3(0.0, 0.0, 0.05)
+        # 将局部偏移转换为世界坐标系中的位置
+        end_spawn_position = end_transform.transform_point(local_offset)
+
+
+        gold_state = gym.get_actor_rigid_body_states(envs[i], gold_handles[i], gymapi.STATE_ALL)
+        gold_index = gym.find_actor_rigid_body_index(envs[i], gold_handles[i], "base_link", gymapi.DOMAIN_ACTOR)
+
+        # print("before")
+
+        gold_state['pose']['p'][gold_index]=(end_spawn_position.x, end_spawn_position.y, end_spawn_position.z)
+        gold_state['pose']['r'][gold_index]=(end_transform.r.x, end_transform.r.y, end_transform.r.z, end_transform.r.w)
+        gold_state['vel']['linear'].fill(0)
+        gold_state['vel']['angular'].fill(0)
+        # gold_state['pose']['p'].fill((end_spawn_position.x, end_spawn_position.y, end_spawn_position.z))
+        # gold_state['pose']['r'].fill((end_transform.r.x, end_transform.r.y, end_transform.r.z, end_transform.r.w))
+
+      
+        # print("after")
+        # print(gold_state)
+
+
+        gym.set_actor_rigid_body_states(envs[i], gold_handles[i], gold_state, gymapi.STATE_ALL)
+        # print(gold_state['pose']['p'])
 
 
         # 切换位置
         if reset:
+
+            robot_target_pos_bias_envs[i]=[np.random.uniform(low, high) for low, high in robot_pos_ranges]
+            robot_target_alg_bias_envs[i]=[np.random.uniform(low, high) for low, high in alg_ranges]
+
+            
+
+            # print("IK:")
+            # print(robot_target_pos_envs[i],robot_target_alg_envs[i])
+            # robot_pos,robot_alg=arm_fk(robot_ik_solver,robot_send_joints_envs[i])
+            # print("FK:")
+            # print(robot_pos,robot_alg)
+
             #target_position = [np.random.uniform(low, high) for low, high in ranges]
 
             # station_target_pos_bias=[0.0,0,0] #x 0.35,y,z
@@ -416,13 +545,14 @@ while not gym.query_viewer_has_closed(viewer):
                 station_target_alg_envs[i]=np.array(station_init_angle)+np.array(station_target_alg_bias_envs[i])
 
                 # 获取解算角度
-                station_send_joints_envs[i],state=station_ik(ik_solver,station_send_joints_envs[i],station_target_pos_envs[i],station_target_alg_envs[i])
+                station_send_joints_envs[i],state=arm_ik(ik_solver,station_send_joints_envs[i],station_target_pos_envs[i],station_target_alg_envs[i])
 
                 if state:
                     break
 
         if init:
-            station_send_joints_envs[i].fill(0)
+            station_send_joints_envs[i]=[0,0,0,0,0,0,0]
+            robot_target_pos_bias_envs[i]=robot_init_position
 
         gym.set_actor_dof_position_targets(envs[i], actor_handles[i], station_send_joints_envs[i])
 

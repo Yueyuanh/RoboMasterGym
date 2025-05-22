@@ -193,8 +193,8 @@ for i in range(num_envs):
     props["stiffness"][1] = 1000.0
     props["damping"][1] = 50.0
 
-    # props['lower'].fill(-1000)
-    # props['upper'].fill(1000)
+    props['lower'].fill(-1000)
+    props['upper'].fill(1000)
 
     gym.set_actor_dof_properties(env, ahandle, props)
 
@@ -371,7 +371,8 @@ while not gym.query_viewer_has_closed(viewer):
         # pitch_transform = gym.get_rigid_transform(envs[i], pitch_link_index)
         pitch_transform = gym.get_rigid_transform(envs[i], pitch_link_index)
 
-        # print(pitch_transform.p)
+        print(pitch_transform.p)
+        
         # 子弹初始位置
         spawn = pitch_transform.p
         # 定义在 Pitch_link 局部坐标系中的偏移量
@@ -421,7 +422,9 @@ while not gym.query_viewer_has_closed(viewer):
 
         # aim_angle[0]=0
         # aim_angle[1]=0.08
-
+        if aim_angle[0] == np.nan:
+            aim_angle[0]=0
+            aim_angle[1]=0
         gym.set_actor_dof_position_targets(envs[i], robot_handles[i], aim_angle)
 
 
