@@ -2,7 +2,7 @@
 
 RoboMaster IsaacGym Framework
 
-> 本项目目前只是调试完成部分项目与IsaacGym的相关接口、资产配置和规则设置，暂时并没有引入强化学习框架和相关算法（后续考虑引入LeeggedGym等框架）
+> 本项目目前只是调试完成部分项目与IsaacGym的相关接口、资产配置和规则设置，暂时并没有引入强化学习框架和相关算法（后续考虑引入LeggedGym等框架）
 ## TODO
 
 - [x] 自瞄小陀螺
@@ -16,14 +16,14 @@ RoboMaster IsaacGym Framework
 ## AutoAim
 | 静态截图 | 内录第一视角 |
 |----------|--------------|
-| <img src="doc/autoaim.png" width="300"> | <img src="doc/autoaim_1st.gif" width="300"> |
-| <img src="doc/autoaim_test.gif" width="300"> | <img src="doc/autoaim_multi.gif" width="300"> |
+| <img src="doc/autoaim.png" width="400"> | <img src="doc/autoaim_1st.gif" width="400"> |
+| <img src="doc/autoaim_test.gif" width="400"> | <img src="doc/autoaim_multi.gif" width="400"> |
 
 ## Exchange
 | 内录第一视角 | 第三方视角 |
 |----------|------------|
-| <img src="doc/exchange.png" width="300"> | <img src="doc/exchange_3rd.gif" width="300"> |
-| <img src="doc/exchange_base.gif" width="300"> | <img src="doc/exchange_multi.gif" width="300"> |
+| <img src="doc/exchange.png" width="400"> | <img src="doc/exchange_3rd.gif" width="400"> |
+| <img src="doc/exchange_base.gif" width="400"> | <img src="doc/exchange_multi.gif" width="400"> |
 
 
 ## 开源引用
