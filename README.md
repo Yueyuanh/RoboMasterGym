@@ -52,3 +52,5 @@ python simplify_stl.py <输入目录> <输出目录> <压缩率(0.0~1.0)>
 
 ## 开源引用
 >[RM2024-工程机器人机械结构开源上海交通大学-云汉交龙战队](https://bbs.robomaster.com/article/54080?source=4)
+>
+>[[ 官方开源 ]RMU 2025场地图纸&装甲贴纸开源](https://bbs.robomaster.com/article/372035?source=4)
