@@ -16,14 +16,14 @@ RoboMaster IsaacGym Framework
 ## AutoAim
 | 静态截图 | 内录第一视角 |
 |----------|--------------|
-| <img src="doc/autoaim.png" width="400"> | <img src="doc/autoaim_1st.gif" width="400"> |
-| <img src="doc/autoaim_test.gif" width="400"> | <img src="doc/autoaim_multi.gif" width="400"> |
+| <img src="doc/autoaim.png" width="350"> | <img src="doc/autoaim_1st.gif" width="350"> |
+| <img src="doc/autoaim_test.gif" width="350"> | <img src="doc/autoaim_multi.gif" width="350"> |
 
 ## Exchange
 | 内录第一视角 | 第三方视角 |
 |----------|------------|
-| <img src="doc/exchange.png" width="400"> | <img src="doc/exchange_3rd.gif" width="400"> |
-| <img src="doc/exchange_base.gif" width="400"> | <img src="doc/exchange_multi.gif" width="400"> |
+| <img src="doc/exchange.png" width="350"> | <img src="doc/exchange_3rd.gif" width="350"> |
+| <img src="doc/exchange_base.gif" width="350"> | <img src="doc/exchange_multi.gif" width="350"> |
 
 
 ## 开源引用
