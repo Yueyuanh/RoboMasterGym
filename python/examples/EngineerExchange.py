@@ -153,13 +153,13 @@ camera_handles=[]
 video_fps=25
 video=[]
 video_writer=[]
-output_path="autoaim_capture"
+output_path="exchange_capture"
 
 if args.capture_video and not os.path.exists(output_path):
     os.mkdir(output_path)
 
-if not os.path.exists("multiple_camera_images"):
-    os.mkdir("multiple_camera_images")
+if not os.path.exists("engineer_camera_images"):
+    os.mkdir("engineer_camera_images")
 
 
 # 创建多个环境
@@ -286,15 +286,6 @@ for i in range(num_envs):
     video_writer.append(video_writer_ahandle)
 
 
-
-target_positions=[0,0]
-target_velocity=[0,0]
-
-aim_angle=[0,0]
-
-tx=[]
-tid=[]
-vid=[]
 
 
 # 使用关节选转
@@ -470,27 +461,23 @@ while not gym.query_viewer_has_closed(viewer):
         # elif robot_xyz[4]:robot_target_pos_bias_envs[i][2]+=0.05
         # elif robot_xyz[5]:robot_target_pos_bias_envs[i][2]-=0.05
 
-
-
         # robot_target_pos_bias_envs[i]=[0.3,0.0,0.0] #x 0.35,y,z
         # robot_target_alg_bias_envs[i]=[0.5,0.0,0.0]   #p,y,r
 
-        robot_target_pos_envs[i]=np.array(robot_init_position)+np.array(robot_target_pos_bias_envs[i])
-        robot_target_alg_envs[i]=np.array(robot_init_angle)+np.array(robot_target_alg_bias_envs[i])
+        # robot_target_pos_envs[i]=np.array(robot_init_position)+np.array(robot_target_pos_bias_envs[i])
+        # robot_target_alg_envs[i]=np.array(robot_init_angle)+np.array(robot_target_alg_bias_envs[i])
 
 
-        # 获取解算角度
-        robot_send_joints_envs[i],state=arm_ik(robot_ik_solver,robot_send_joints_envs[i],robot_target_pos_envs[i],robot_target_alg_envs[i])
-
-        gym.set_actor_dof_position_targets(envs[i], robot_handles[i], robot_send_joints_envs[i])
+        # # 获取解算角度
+        # robot_send_joints_envs[i],state=arm_ik(robot_ik_solver,robot_send_joints_envs[i],robot_target_pos_envs[i],robot_target_alg_envs[i])
 
 
 
-        # 吸矿
+
+      #  <-------矿石----------> 
         # 获取末端位置
         end_link_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "End_link", gymapi.DOMAIN_ENV)
         end_transform = gym.get_rigid_transform(envs[i], end_link_index)
-        # end_pose=end_transform.p
         local_offset = gymapi.Vec3(0.0, 0.0, 0.05)
         # 将局部偏移转换为世界坐标系中的位置
         end_spawn_position = end_transform.transform_point(local_offset)
@@ -499,43 +486,65 @@ while not gym.query_viewer_has_closed(viewer):
         gold_state = gym.get_actor_rigid_body_states(envs[i], gold_handles[i], gymapi.STATE_ALL)
         gold_index = gym.find_actor_rigid_body_index(envs[i], gold_handles[i], "base_link", gymapi.DOMAIN_ACTOR)
 
-        # print("before")
-
         gold_state['pose']['p'][gold_index]=(end_spawn_position.x, end_spawn_position.y, end_spawn_position.z)
         gold_state['pose']['r'][gold_index]=(end_transform.r.x, end_transform.r.y, end_transform.r.z, end_transform.r.w)
         gold_state['vel']['linear'].fill(0)
         gold_state['vel']['angular'].fill(0)
-        # gold_state['pose']['p'].fill((end_spawn_position.x, end_spawn_position.y, end_spawn_position.z))
-        # gold_state['pose']['r'].fill((end_transform.r.x, end_transform.r.y, end_transform.r.z, end_transform.r.w))
-
-      
-        # print("after")
-        # print(gold_state)
-
 
         gym.set_actor_rigid_body_states(envs[i], gold_handles[i], gold_state, gymapi.STATE_ALL)
-        # print(gold_state['pose']['p'])
+
+
+      #  <-------相机位置----------> 
+
+        # L4_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "L4", gymapi.DOMAIN_ACTOR)
+        # L4_handle = gym.get_actor_rigid_body_handle(envs[i], robot_handles[i], L4_index)
+
+        # # 设置相机相对于该 link 的局部偏移变换
+        # camera_local_transform = gymapi.Transform()
+        # camera_local_transform.p = gymapi.Vec3(0.1, 0.15, 0.07)  # 相对于 link 的相机位置偏移
+        # camera_local_transform.r = gymapi.Quat.from_euler_zyx(np.radians(-90), np.radians(-90), np.radians(90))
+
+        robot_base_index = gym.find_actor_rigid_body_index(envs[i], robot_handles[i], "L1", gymapi.DOMAIN_ACTOR)
+        robot_base_handle = gym.get_actor_rigid_body_handle(envs[i], robot_handles[i], robot_base_index)
+
+        # 设置相机相对于该 link 的局部偏移变换
+        camera_local_transform = gymapi.Transform()
+        camera_local_transform.p = gymapi.Vec3(-0.2, 0.0, 0.7)  # 相对于 link 的相机位置偏移
+        camera_local_transform.r = gymapi.Quat.from_euler_zyx(np.radians(-90), np.radians(-180), np.radians(90))
+
+
+        gym.attach_camera_to_body(camera_handles[i], envs[i], robot_base_handle, camera_local_transform, gymapi.FOLLOW_TRANSFORM)  
+
+
+        #  <-------相机采样----------> 
+        if args.capture_video:
+
+            image = gym.get_camera_image(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR)
+            if image is None:
+                continue
+
+            # 将图像转换为 OpenCV 格式
+            img_np = np.frombuffer(image, dtype=np.uint8).reshape(camera_height, camera_width, 4)  # H, W, RGBA
+            bgr_img = cv2.cvtColor(img_np[..., :3], cv2.COLOR_RGB2BGR)  # 去除 alpha 并转 BGR
+            video_writer[i].write(bgr_img)
+
+
+        if robot_xyz[0]:
+
+            robot_target_pos_bias_envs[i]=[np.random.uniform(low, high) for low, high in robot_pos_ranges]
+            robot_target_alg_bias_envs[i]=[np.random.uniform(low, high) for low, high in alg_ranges]
+
+            robot_target_pos_envs[i]=np.array(robot_init_position)+np.array(robot_target_pos_bias_envs[i])
+            robot_target_alg_envs[i]=np.array(robot_init_angle)+np.array(robot_target_alg_bias_envs[i])
+
+            # 获取解算角度
+            robot_send_joints_envs[i],state=arm_ik(robot_ik_solver,robot_send_joints_envs[i],robot_target_pos_envs[i],robot_target_alg_envs[i])
 
 
         # 切换位置
         if reset:
 
-            robot_target_pos_bias_envs[i]=[np.random.uniform(low, high) for low, high in robot_pos_ranges]
-            robot_target_alg_bias_envs[i]=[np.random.uniform(low, high) for low, high in alg_ranges]
 
-            
-
-            # print("IK:")
-            # print(robot_target_pos_envs[i],robot_target_alg_envs[i])
-            # robot_pos,robot_alg=arm_fk(robot_ik_solver,robot_send_joints_envs[i])
-            # print("FK:")
-            # print(robot_pos,robot_alg)
-
-            #target_position = [np.random.uniform(low, high) for low, high in ranges]
-
-            # station_target_pos_bias=[0.0,0,0] #x 0.35,y,z
-            # station_target_alg_bias=[0.0,0.0,0.5]   #p,y,r
- 
             # 随机xyz
             while True:
                 station_target_pos_bias_envs[i]=[np.random.uniform(low, high) for low, high in pos_ranges]
@@ -551,10 +560,17 @@ while not gym.query_viewer_has_closed(viewer):
                     break
 
         if init:
-            station_send_joints_envs[i]=[0,0,0,0,0,0,0]
-            robot_target_pos_bias_envs[i]=robot_init_position
+            # station_send_joints_envs[i]=[0,0,0,0,0,0,0]
+            robot_send_joints_envs[i]=[0,0,0,0,0,0,0]
 
         gym.set_actor_dof_position_targets(envs[i], actor_handles[i], station_send_joints_envs[i])
+        gym.set_actor_dof_position_targets(envs[i], robot_handles[i], robot_send_joints_envs[i])
+
+
+        # if init:
+        #     rgb_filename = "engineer_camera_images/rgb_env%d_cam0.png" % (i)
+        #     gym.write_camera_image_to_file(sim, envs[i], camera_handles[i], gymapi.IMAGE_COLOR, rgb_filename)
+
 
     # 渲染更新
     gym.step_graphics(sim)
