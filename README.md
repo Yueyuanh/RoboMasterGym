@@ -25,13 +25,14 @@ RoboMaster IsaacGym Framework
 | <img src="doc/exchange.png" width="350"> | <img src="doc/exchange_3rd.gif" width="350"> |
 | <img src="doc/exchange_base.gif" width="350"> | <img src="doc/exchange_multi.gif" width="350"> |
 
-## Buff
-![](doc/buff.png)
+## 其他资产
 
-> 官方模型直出，待优化细节
+| 大风车 | RMUC场地 |
+|----------|------------|
+| <img src="doc/buff.png" width="350"> | <img src="doc/UC.png" width="350"> |
 
-## RMUC
-![](doc/UC.png)
+
+> 能量机关由官方模型直出，待优化细节
 
 > 地形资产导入后碰撞体被简化，待修复
 
