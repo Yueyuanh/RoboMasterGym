@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Buff">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-7.95669638781299E-05 0.00786948888083497 0.242608174005723"
+        rpy="0 0 0" />
+      <mass
+        value="775.017980508962" />
+      <inertia
+        ixx="250.18549608156"
+        ixy="-0.652244800710857"
+        ixz="-0.0586538209416727"
+        iyy="26.8005836245663"
+        iyz="-1.54137199379544"
+        izz="240.146428328146" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="LR">
+    <inertial>
+      <origin
+        xyz="-1.20100654730631E-06 -8.92808509077261E-08 0.123535445504877"
+        rpy="0 0 0" />
+      <mass
+        value="0.0618311121832715" />
+      <inertia
+        ixx="9.45033632483299E-05"
+        ixy="4.78002103434442E-13"
+        ixz="-3.00595518322423E-13"
+        iyy="3.17008715775779E-05"
+        iyz="-7.80838909259616E-12"
+        izz="6.28055081163975E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/LR.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/LR.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="JR"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="LR" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_red">
+    <inertial>
+      <origin
+        xyz="0.319599828391567 1.02452877653177E-05 0.186524605429957"
+        rpy="0 0 0" />
+      <mass
+        value="0.036601182520404" />
+      <inertia
+        ixx="0.000377906659554638"
+        ixy="8.003697720858E-12"
+        ixz="0.000118592274224791"
+        iyy="0.000413408222248078"
+        iyz="-2.34970105371891E-11"
+        izz="3.93141862702782E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_red.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_red.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_red"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_red" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_blue">
+    <inertial>
+      <origin
+        xyz="-0.319602441106463 1.02741421054294E-05 0.185133280385293"
+        rpy="0 0 0" />
+      <mass
+        value="0.0366011820541548" />
+      <inertia
+        ixx="0.000377906640156586"
+        ixy="2.86820503599908E-12"
+        ixz="-0.000118592277516349"
+        iyy="0.000413408206841734"
+        iyz="7.30016829244365E-12"
+        izz="3.93141902987112E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_blue.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_blue.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_blue"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_blue" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_fan">
+    <inertial>
+      <origin
+        xyz="0.000193074370174795 -0.00199363117969175 0.00265296413131018"
+        rpy="0 0 0" />
+      <mass
+        value="11.5585195565964" />
+      <inertia
+        ixx="0.227647784696683"
+        ixy="0.000368013763749753"
+        ixz="-1.50508901643428E-06"
+        iyy="0.227599114097822"
+        iyz="2.35251663666669E-05"
+        izz="0.445639112158474" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_fan"
+    type="continuous">
+    <origin
+      xyz="0 0 2.28400000184518"
+      rpy="-3.14159214987834 -1.57079631189374 3.14159214743128" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_fan" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="L_fan_red">
+    <inertial>
+      <origin
+        xyz="-0.000317950262705757 8.3864631188593E-05 0.490836193258555"
+        rpy="0 0 0" />
+      <mass
+        value="0.00412743475967046" />
+      <inertia
+        ixx="3.00004543905898E-06"
+        ixy="-1.11758192076096E-09"
+        ixz="2.80582615063185E-10"
+        iyy="2.99394328913466E-06"
+        iyz="-7.40082991917905E-11"
+        izz="5.99382972262398E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan_red.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan_red.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_fan_red"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan" />
+    <child
+      link="L_fan_red" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_R1">
+    <inertial>
+      <origin
+        xyz="0.535138840613426 -2.19360929163975E-09 0.326975909383291"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081350224" />
+      <inertia
+        ixx="0.00281234023932614"
+        ixy="3.77205077954725E-11"
+        ixz="1.93274161958337E-14"
+        iyy="0.00253808935502547"
+        iyz="-1.75469447999399E-14"
+        izz="0.0053496149966329" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R1.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R1"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_red" />
+    <child
+      link="L_R1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_R2">
+    <inertial>
+      <origin
+        xyz="0.16536699401333 -0.508947282165951 0.326975909383249"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081350129" />
+      <inertia
+        ixx="0.00256427800628965"
+        ixy="-8.06003431245233E-05"
+        ixz="-1.07351828240401E-14"
+        iyy="0.00278615158806537"
+        iyz="-2.39904667312385E-14"
+        izz="0.00534961499663627" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R2.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R2"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_red" />
+    <child
+      link="L_R2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_R3">
+    <inertial>
+      <origin
+        xyz="-0.432936417695702 -0.314546716666753 0.326975909383283"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081349913" />
+      <inertia
+        ixx="0.00271758885328611"
+        ixy="0.000130414056964026"
+        ixz="-2.5891644840623E-14"
+        iyy="0.00263284074106246"
+        iyz="2.67104047213529E-15"
+        izz="0.0053496149966298" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R3.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R3"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_red" />
+    <child
+      link="L_R3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_R4">
+    <inertial>
+      <origin
+        xyz="-0.432936415116875 0.314546720216186 0.326975909383287"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081349903" />
+      <inertia
+        ixx="0.00271758892503448"
+        ixy="-0.000130414033651618"
+        ixz="-5.51737182962337E-15"
+        iyy="0.00263284066931349"
+        iyz="2.53685961126848E-14"
+        izz="0.00534961499662923" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R4.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R4"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_red" />
+    <child
+      link="L_R4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_R5">
+    <inertial>
+      <origin
+        xyz="0.165366998185908 0.508947280810235 0.326975909383302"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081350119" />
+      <inertia
+        ixx="0.00256427796194468"
+        ixy="8.0600282089987E-05"
+        ixz="2.26776106367428E-14"
+        iyy="0.00278615163240858"
+        iyz="1.30035955961394E-14"
+        izz="0.0053496149966345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R5.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_R5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_R5"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_red" />
+    <child
+      link="L_R5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_fan_blue">
+    <inertial>
+      <origin
+        xyz="-0.000317950254079769 -8.38646309313214E-05 -0.490836193258544"
+        rpy="0 0 0" />
+      <mass
+        value="0.00412743475967054" />
+      <inertia
+        ixx="3.0000454390591E-06"
+        ixy="1.11758192076102E-09"
+        ixz="-2.80582667675925E-10"
+        iyy="2.99394328913476E-06"
+        iyz="-7.40082991732616E-11"
+        izz="5.99382972262417E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan_blue.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_fan_blue.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_fan_blue"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan" />
+    <child
+      link="L_fan_blue" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_B1">
+    <inertial>
+      <origin
+        xyz="0.535138840621765 2.19463913965762E-09 -0.326975909382451"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081350225" />
+      <inertia
+        ixx="0.00281234023932618"
+        ixy="-3.77205088436345E-11"
+        ixz="-2.32422613121887E-14"
+        iyy="0.00253808935502553"
+        iyz="-4.02781107078365E-15"
+        izz="0.00534961499663293" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B1.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_B1"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_blue" />
+    <child
+      link="L_B1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_B2">
+    <inertial>
+      <origin
+        xyz="0.16536699402008 0.508947282167492 -0.326975909385531"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081350133" />
+      <inertia
+        ixx="0.00256427800628966"
+        ixy="8.06003431245352E-05"
+        ixz="-2.15228419740593E-14"
+        iyy="0.00278615158806537"
+        iyz="-2.0306022488481E-15"
+        izz="0.00534961499663631" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B2.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_B2"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_blue" />
+    <child
+      link="L_B2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_B3">
+    <inertial>
+      <origin
+        xyz="-0.432936417689954 0.314546716667013 -0.326975909390875"
+        rpy="0 0 0" />
+      <mass
+        value="0.37928008134991" />
+      <inertia
+        ixx="0.00271758885328611"
+        ixy="-0.000130414056964015"
+        ixz="-2.03610685726446E-14"
+        iyy="0.00263284074106247"
+        iyz="3.80771802976909E-16"
+        izz="0.00534961499662977" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B3.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_B3"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_blue" />
+    <child
+      link="L_B3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_B4">
+    <inertial>
+      <origin
+        xyz="-0.432936415110133 -0.314546720217299 -0.326975909391035"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081349902" />
+      <inertia
+        ixx="0.00271758892503448"
+        ixy="0.000130414033651629"
+        ixz="-2.43127212211816E-14"
+        iyy="0.00263284066931349"
+        iyz="3.80554962542412E-15"
+        izz="0.00534961499662921" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B4.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_B4"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_blue" />
+    <child
+      link="L_B4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_B5">
+    <inertial>
+      <origin
+        xyz="-0.432936415110133 -0.314546720217299 -0.326975909391035"
+        rpy="0 0 0" />
+      <mass
+        value="0.379280081349902" />
+      <inertia
+        ixx="0.00271758892503448"
+        ixy="0.000130414033651629"
+        ixz="-2.43125179332742E-14"
+        iyy="0.00263284066931349"
+        iyz="3.80554962542412E-15"
+        izz="0.00534961499662921" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B5.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Buff/meshes/L_B5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_B5"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="L_fan_blue" />
+    <child
+      link="L_B5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="RMUC2025">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="8.20876410212402E-16 -7.32882316312982E-16 0.103176746903224"
+        rpy="0 0 0" />
+      <mass
+        value="94314.729385862" />
+      <inertia
+        ixx="1998713.18453546"
+        ixy="5152.57627588345"
+        ixz="5.35367512360191E-12"
+        iyy="6582686.27321276"
+        iyz="-1.22226074405273E-11"
+        izz="8580759.68642863" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="base_link_2">
+    <inertial>
+      <origin
+        xyz="0.00463718875070874 0.00321222640386702 0.45712641842465"
+        rpy="0 0 0" />
+      <mass
+        value="82889.5830942207" />
+      <inertia
+        ixx="267831.677499516"
+        ixy="-36452.0618204395"
+        ixz="0.73403042846942"
+        iyy="311435.512965287"
+        iyz="-0.605660463201843"
+        izz="574635.371838602" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/base_link_2.STL" />
+      </geometry>
+      <material
+        name="black">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/base_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_joint_2"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_link_2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="LR">
+    <inertial>
+      <origin
+        xyz="-0.283382873161504 -0.173305933783091 0.410278961042589"
+        rpy="0 0 0" />
+      <mass
+        value="6.59316870635436" />
+      <inertia
+        ixx="0.884236628829795"
+        ixy="-0.14903379344484"
+        ixz="4.6451855697583E-13"
+        iyy="1.88990688254705"
+        iyz="-5.00457676545614E-11"
+        izz="2.77407864874752" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/LR.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/LR.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="JR"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="LR" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_red">
+    <inertial>
+      <origin
+        xyz="8.20287009141017 -0.4321037886121 0.583161715447239"
+        rpy="0 0 0" />
+      <mass
+        value="5.36308987246265" />
+      <inertia
+        ixx="5.66923374050812"
+        ixy="-0.681721156592262"
+        ixz="0.0792803379990846"
+        iyy="15.2595787609463"
+        iyz="0.0312270149488916"
+        izz="20.7642016449586" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/L_red.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/L_red.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_red"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_red" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="L_blue">
+    <inertial>
+      <origin
+        xyz="-8.03053015445369 0.233619183709507 0.549170518200729"
+        rpy="0 0 0" />
+      <mass
+        value="5.05996035287621" />
+      <inertia
+        ixx="5.55457583615925"
+        ixy="-0.680843560026937"
+        ixz="-0.0791150546019635"
+        iyy="15.1455491618041"
+        iyz="-0.0309909676040117"
+        izz="20.5356031047272" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/L_blue.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMUC2025/meshes/L_blue.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="J_blue"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="L_blue" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

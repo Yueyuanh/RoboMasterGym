@@ -27,7 +27,7 @@ gym = gymapi.acquire_gym()
 args = gymutil.parse_arguments(
     description="Projectiles Example: Press SPACE to fire a projectile. Press R to reset the simulation.",
     custom_parameters=[
-        {"name": "--num_envs", "type": int, "default": 36, "help": "Number of environments to create"}])
+        {"name": "--num_envs", "type": int, "default": 1, "help": "Number of environments to create"}])
 
 # configure sim
 sim_params = gymapi.SimParams()
@@ -69,17 +69,29 @@ gym.subscribe_viewer_mouse_event(viewer, gymapi.MOUSE_LEFT_BUTTON, "mouse_shoot"
 
 # load asset
 asset_root = "../../assets"
-asset_file = "urdf/Exchange_Station/urdf/Exchange_Station.urdf"
+# asset_file = "urdf/Buff/urdf/Buff.urdf"
+# asset_file = "urdf/RMUC/RMUC.urdf"
+asset_file = "urdf/RMUC2025/urdf/RMUC2025.urdf"
+# asset_file = "urdf/Exchange_Station/urdf/Exchange_Station.urdf"
 # asset_file = "urdf/Wheelleg_Robot/urdf/Wheelleg_Robot.urdf"
 
 
 asset_options = gymapi.AssetOptions()
+asset_options.fix_base_link = True
+asset_options.disable_gravity = True
+
+# asset_options.vhacd_enabled = True
+# asset_options.vhacd_params.resolution = 30000  # 提高分辨率以获得更精细的分解
+# asset_options.vhacd_params.max_convex_hulls = 100  # 增加凸包数量以更好地拟合复杂形状
+
+# asset_options.use_mesh_materials=True
+asset_options.convex_decomposition_from_submeshes=True
 asset = gym.load_asset(sim, asset_root, asset_file, asset_options)
 
 # set up the grid of environments
 num_envs = args.num_envs
 num_per_row = int(sqrt(num_envs))
-spacing = 2.0
+spacing = 20
 
 envs = []
 actor_handles = []
