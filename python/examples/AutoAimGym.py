@@ -17,7 +17,7 @@ gym = gymapi.acquire_gym()
 args = gymutil.parse_arguments(
     description="Projectiles Example: Press SPACE to fire a projectile. Press R to reset the simulation.",
     custom_parameters=[
-        {"name": "--num_envs", "type": int, "default": 1, "help": "要创建的环境数量"},
+        {"name": "--num_envs", "type": int, "default": 4, "help": "要创建的环境数量"},
         {"name": "--capture_video", "action": "store_true", "help": "录制视频保存到本地"},
         {"name": "--headless", "action": "store_true",  "help": "无渲染模式"}
         ])

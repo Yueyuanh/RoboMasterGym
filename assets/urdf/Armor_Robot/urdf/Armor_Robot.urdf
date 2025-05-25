@@ -233,7 +233,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_1.STL" />
       </geometry>
       <material
-        name="">
+        name="red">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -286,7 +286,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_1.STL" />
       </geometry>
       <material
-        name="">
+        name="black">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -339,7 +339,7 @@
           filename="package://Armor_Robot/meshes/Armor_num_link_1.STL" />
       </geometry>
       <material
-        name="">
+        name="white">
         <color
           rgba="1 1 1 1" />
       </material>
@@ -445,7 +445,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_2.STL" />
       </geometry>
       <material
-        name="">
+        name="red">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -498,7 +498,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_2.STL" />
       </geometry>
       <material
-        name="">
+        name="black">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -551,7 +551,7 @@
           filename="package://Armor_Robot/meshes/Armor_num_link_2.STL" />
       </geometry>
       <material
-        name="">
+        name="white">
         <color
           rgba="1 1 1 1" />
       </material>
@@ -657,7 +657,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_3.STL" />
       </geometry>
       <material
-        name="">
+        name="red">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -710,7 +710,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_3.STL" />
       </geometry>
       <material
-        name="">
+        name="black">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -763,7 +763,7 @@
           filename="package://Armor_Robot/meshes/Armor_num_link_3.STL" />
       </geometry>
       <material
-        name="">
+        name="white">
         <color
           rgba="1 1 1 1" />
       </material>
@@ -869,7 +869,7 @@
           filename="package://Armor_Robot/meshes/Armor_light_link_4.STL" />
       </geometry>
       <material
-        name="">
+        name="red">
         <color
           rgba="1 0 0 1" />
       </material>
@@ -922,7 +922,7 @@
           filename="package://Armor_Robot/meshes/Armor_board_link_4.STL" />
       </geometry>
       <material
-        name="">
+        name="black">
         <color
           rgba="0 0 0 1" />
       </material>
@@ -975,7 +975,7 @@
           filename="package://Armor_Robot/meshes/Armor_num_link_4.STL" />
       </geometry>
       <material
-        name="">
+        name="white">
         <color
           rgba="1 1 1 1" />
       </material>
